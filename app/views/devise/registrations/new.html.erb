@@ -17,8 +17,33 @@
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label :password_confirmation, "Confirm Password" %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :first_name, "First Name" %>
+    <%= f.text_field :first_name, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_name, "Last Name" %>
+    <%= f.text_field :last_name, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :nickname %>
+    <%= f.text_field :nickname, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :belt %>
+    <%= f.text_field :belt, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :stripes %>
+    <%= f.text_field :stripes, autocomplete: "off" %>
   </div>
 
   <div class="actions">
