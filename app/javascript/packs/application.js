@@ -1,11 +1,11 @@
-import React from 'react'
-import { render } from 'react-dom'
+import React from 'react';
+import { render } from 'react-dom';
 
-import App from '../react/containers/App'
-import RedBox from 'redbox-react'
+import App from '../react/containers/App';
+import RedBox from 'redbox-react';
 
 document.addEventListener('DOMContentLoaded', () => {
-  let reactElement = document.getElementById('app')
+  let reactElement = document.getElementById('app');
 
   if (reactElement) {
     if(window.railsEnv && window.railsEnv === 'development'){
