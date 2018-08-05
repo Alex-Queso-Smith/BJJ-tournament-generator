@@ -1,10 +1,14 @@
-import React from 'react'
-import { Route, IndexRoute, Router, browserHistory } from 'react-router';
+import React from 'react';
+import { Link, Route, IndexRoute, Router, browserHistory } from 'react-router';
+
+import AcademiesIndexContainer from './AcademiesIndexContainer'
 
 export const App = (props) => {
   return (
     <Router history={browserHistory} >
-      
+      <Route path='/'>
+        <IndexRoute component={AcademiesIndexContainer} />
+      </Route>
     </Router>
   )
 }
