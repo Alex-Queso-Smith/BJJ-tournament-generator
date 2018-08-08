@@ -22,7 +22,7 @@ feature 'user registers', %Q{
     fill_in 'Last Name', with: 'Smith'
     find("option", text: "Blue").click
 
-    click_button 'Sign up'
+    click_button 'Sign Up'
 
     expect(page).to have_content('Welcome! You have signed up successfully.')
     expect(page).to have_content('Sign Out')
@@ -31,7 +31,7 @@ feature 'user registers', %Q{
   scenario 'provide invalid registration information' do
     visit new_user_registration_path
 
-    click_button 'Sign up'
+    click_button 'Sign Up'
     expect(page).to have_content("can't be blank")
     expect(page).to_not have_content('Sign Out')
   end

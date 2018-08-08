@@ -1,4 +1,4 @@
-.sign-up-form {
+.user-form {
   width: 50%;
   height: 80%;
   float: left;
@@ -10,7 +10,8 @@
 label {
   color: #ffffff;
 }
-.sign-up-title {
+
+.user-title {
   text-align: center;
   color: #ffffff;
 
@@ -21,11 +22,13 @@ label {
 }
 
 input:hover {
-
   border: 2px solid #15993F;
 }
 
 #academy-form {
   width: 50%;
+  float: left;
+}
+.under-buttons {
   float: left;
 }
