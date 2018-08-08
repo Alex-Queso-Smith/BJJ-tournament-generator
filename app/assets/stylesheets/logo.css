@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:500');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:700');
+@import url('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
+.fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.logo {
+  font-family: 'Raleway', Arial, sans-serif;
+  position: relative;
+  float: left;
+  color: #bdbdbd;
+  margin: .5em 1em;
+  max-width: 350px;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+.logo h1,
+.logo h5 {
+  margin: 0;
+  text-transform: uppercase;
+}
+.logo h1 {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.7em;
+  line-height: 50px;
+  position: relative;
+  padding-left: 56px;
+  border: 5px solid #bdbdbd;
+}
+.logo h5,
+.logo h6 {
+  margin: 7px 0 7px 56px;
+}
+.logo h5 {
+  font-weight: 500;
+  font-size: 0.6em;
+}
+.logo h6 {
+  display: inline-block;
+  position: relative;
+}
+.logo i {
+  position: absolute;
+  line-height: 50px;
+  width: 50px;
+  left: 0;
+  border-right: 5px solid #bdbdbd;
+  font-size: 1.1em;
+}

@@ -1,29 +1,97 @@
-<h2>Sign up</h2>
+<div class="grid-container sign-up-form">
+
+
+<h2 class="sign-up-title">Sign up</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <div class="grid-container">
+    <div class="grid-x padding-x">
+      <div class="field cell">
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "E-Mail" %>
+      </div>
+    </div>
+    <div class="grid-x grid-padding-x">
+      <div class="field small-6 cell">
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: "off", placeholder: "Minimum 6 Characters" %>
+      </div>
+      <div class="field small-6 cell">
+        <%= f.label :password_confirmation, "Confirm" %>
+        <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm Password" %>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+  <div class="grid-container">
+    <div class="grid-x grid-padding-x">
+      <div class="field small-4 cell">
+        <%= f.label :first_name, "First Name" %>
+        <%= f.text_field :first_name, autocomplete: "off", placeholder: "First Name" %>
+      </div>
+
+      <div class="field small-4 cell">
+        <%= f.label :last_name, "Last Name" %>
+        <%= f.text_field :last_name, autocomplete: "off", placeholder: "Last Name" %>
+      </div>
+
+      <div class="field small-4 cell">
+        <%= f.label :nickname %>
+        <%= f.text_field :nickname, autocomplete: "off", placeholder: "Optional" %>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  <div class="grid-container ">
+    <div class="grid-x grid-padding-x">
+      <fieldset class="field small-12 cell">
+        <label class="belt" for="belt">Select Belt</label>
+        <%= f.select(:belt, options_for_select([
+          ["White", "White"],
+          ["Blue", "Blue"],
+          ["Purple", "Purple"],
+          ["Brown", "Brown"],
+          ["Black", "Black"]
+          ])) %>
+      </fieldset>
+    </div>
+  </div>
+  <div class="grid-container">
+    <div class="grid-x grid-padding-x">
+      <fieldset class="field small-12 cell">
+        <legend>Select stripes</legend>
+        <%= f.radio_button(:stripes, "0") %>
+        <%= f.label(:zero_stripes, "0") %>
+
+        <%= f.radio_button(:stripes, "1") %>
+        <%= f.label(:one_stripe, "1") %>
+
+        <%= f.radio_button(:stripes, "2") %>
+        <%= f.label(:two_stripe, "2") %>
+
+        <%= f.radio_button(:stripes, "3") %>
+        <%= f.label(:three_stripe, "3") %>
+
+        <%= f.radio_button(:stripes, "4") %>
+        <%= f.label(:four_stripe, "4") %>
+      </fieldset>
+    </div>
+  </div>
+  <div class="grid-container">
+    <div class="grid-x grid-padding-x checkbox instructor">
+      <fieldset class="field cell">
+        <%= f.check_box(:instructor) %>
+        <%= f.label(:instructor, "Instructor? (check if you wish to create an Academy)") %>
+      </fieldset>
+    </div>
   </div>
 
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
+
 <% end %>
 
 <%= render "devise/shared/links" %>
+</div>

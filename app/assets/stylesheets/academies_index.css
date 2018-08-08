@@ -1,0 +1,9 @@
+
+.body{
+  background: url('/assets/toss.jpg') no-repeat center right fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color: #ffffff;
+}
