@@ -7,9 +7,8 @@ class AcademiesShowContainer extends React.Component {
     super(props);
     this.state = {
       academy: {},
-      current_user: null,
-      adminStatus: null,
-      instructorStatus: null
+      currentUser: null,
+      adminStatus: null
     };
   }
 
@@ -29,7 +28,9 @@ class AcademiesShowContainer extends React.Component {
     .then(response => response.json())
     .then(body => {
       this.setState({
-        academy: body.academy
+        academy: body.academy,
+        adminStatus: body.admin_status,
+        currentUser: body.user_id
       })
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
@@ -39,7 +40,11 @@ class AcademiesShowContainer extends React.Component {
     return(
       <div>
       <AcademyShowTile
-
+        id={this.state.academy.id}
+        name={this.state.academy.name}
+        adminStatus={this.state.adminStatus}
+        academyOwner={this.state.academy.user_id}
+        userId={this.state.currentUser}
       />
       </div>
     )
