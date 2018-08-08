@@ -6,28 +6,32 @@
 
   <%= stylesheet_link_tag 'application', media: 'all' %>
 
-    <%= javascript_include_tag "vendor/modernizr" %>
+    <%# javascript_include_tag "vendor/modernizr" %>
     <%= javascript_pack_tag    'application' %>
     <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="body">
 
   <nav class="top-bar">
-    <ul class="title-area">
-      <li class="name">
-        <h1><a href="/">Academies</a></h1>
-      </li>
-    </ul>
+    <section class="top-bar-section">
+      <div class="left title-button">
+        <div class="logo">
+          <h1><i class="ion-trophy"></i>BJJ forge</h1>
+        </div>
+      </div>
+    </section>
     <section class="top-bar-section">
       <div class="right">
         <%- if current_user -%>
-            <ul class="menu vertical">
-              <li><%= link_to 'Edit', edit_user_registration_path %></li>
+            <ul class="menu horizontal title-button">
+              <li><%= link_to 'Home', academies_path %></li>
+              <li class=""><%= link_to 'Edit', edit_user_registration_path %></li>
               <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
             </ul>
         <%- else -%>
-        <ul class="menu">
+        <ul class="menu title-button">
+          <li><%= link_to 'Home', academies_path %></li>
           <li><%= link_to 'Sign Up', new_user_registration_path %></li>
           <li><%= link_to 'Sign In', new_user_session_path %></li>
         </ul>
