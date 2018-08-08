@@ -1,11 +1,19 @@
 import React from 'react';
 
-const AcademyShowTile = props => {
-  return(
-    <div>
-    Holler from the show
-    </div>
-  )
+class AcademyShowTile extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+
+    }
+  }
+  render(){
+    return(
+      <div>
+      Holler from the show
+      </div>
+    )
+  }
 };
 
 export default AcademyShowTile

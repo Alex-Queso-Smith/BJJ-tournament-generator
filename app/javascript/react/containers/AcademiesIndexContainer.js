@@ -45,7 +45,7 @@ class AcademiesIndexContainer extends React.Component {
     if(instructorStatus || adminStatus){
       newAcademyButton =
       <Link to="/academies/new">
-        <button className="button">
+        <button className="button medium hover-button">
           Add Your Academy
         </button>
       </Link>
@@ -54,24 +54,26 @@ class AcademiesIndexContainer extends React.Component {
     if(academies.length != 0){
       academiesArray = academies.map((academy) => {
         return(
-          <AcademyTile
-            key={academy.id}
-            id={academy.id}
-            name={academy.name}
-            address={academy.address}
-            city={academy.city}
-            state={academy.state}
-            zipcode={academy.zipcode}
-            website={academy.zipcode}
-          />
+            <AcademyTile
+              key={academy.id}
+              id={academy.id}
+              name={academy.name}
+              address={academy.address}
+              city={academy.city}
+              state={academy.state}
+              zipcode={academy.zipcode}
+              website={academy.zipcode}
+            />
         )
       })
     }
     return(
-      <div>
-        <h1>Hello from react index container</h1>
-        {academiesArray}
-        {newAcademyButton}
+      <div className="grid-container">
+        <div className="grid-x grid-padding-x grid-padding-y index-page">
+          <h1 className="title-index">Academies</h1>
+            {academiesArray}
+            {newAcademyButton}
+        </div>
       </div>
     )
   }
