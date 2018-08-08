@@ -1,26 +1,33 @@
 class Api::V1::AcademiesController < ApiController
 
   def index
-    academies = Academy.all
-    render json: {academies: academies, admin_status: admin_status?, instructor_status: instructor_status?}
-  end
-
-  def show
-    current_user_id = current_user.id if current_user
     admin_status = false
     instructor_status = false
 
-    if user_signed_in?
-      admin_status = current_user.admin?
-      instructor_status = current_user.instructor?
-    end
+    admin_status = current_user.admin? if user_signed_in?
+    instructor_status = current_user.instructor? if user_signed_in?
+
+    academies = Academy.all
+    render json: {academies: academies, admin_status: admin_status, instructor_status: instructor_status}
+  end
+
+  def show
+    current_user_id = current_user.id if user_signed_in?
+
+    admin_status = false
+    instructor_status = false
+
+    admin_status = current_user.admin? if user_signed_in?
+    instructor_status = current_user.instructor? if user_signed_in?
+
 
     academy = Academy.find(params[:id])
 
     render json: {
       academy: academy,
       admin_status: admin_status,
-      instructor_status: instructor_status
+      user_id: current_user_id,
+
     }
   end
 
@@ -39,23 +46,20 @@ class Api::V1::AcademiesController < ApiController
     end
   end
 
+  def edit
+  end
+
+  def update
+    edited_academy = Academy.find(params[:id])
+
+    if edited_academy.update(academy_params)
+      render json: { academy: edited_academy }
+    else
+      render json: { errors: edited_academy.errors }
+    end
+  end
+
   private
-
-  def instructor_status?
-    if user_signed_in?
-      current_user.instructor?
-    else
-      false
-    end
-  end
-
-  def admin_status?
-    if user_signed_in?
-      current_user.admin?
-    else
-      false
-    end
-  end
 
   def academy_params
     params
