@@ -34,10 +34,9 @@ RSpec.describe User, type: :model do
       expect(user6).to_not be_valid
     end
 
-  end
+
     it "is invalid with belt missing " do
       expect(user7).to_not be_valid
     end
-
   end
 end
