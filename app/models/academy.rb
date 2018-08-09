@@ -6,4 +6,6 @@ class Academy < ApplicationRecord
   validates :zipcode, presence: true
 
   belongs_to :user
+
+  mount_uploader :academy_photo, AcademyPhotoUploader
 end

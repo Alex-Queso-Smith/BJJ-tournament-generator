@@ -9,11 +9,20 @@ class AcademyTile extends React.Component {
     };
   }
 
+
+
   render(){
+    let image = ''
+    if(this.props.photo.url){
+      image = <img src={this.props.photo.url} />
+    } else {
+      image = <img src="/assets/heart.jpg" alt="/public/heart.jpg" />
+    }
+
     return(
       <div className="cell">
         <figure className="index-image">
-          <img src="/assets/heart.jpg" alt="/public/heart" />
+          {image}
           <figcaption>
             <h3>{this.props.name}</h3>
             <p>{`${this.props.address}, ${this.props.city} ${this.props.state}`}</p>

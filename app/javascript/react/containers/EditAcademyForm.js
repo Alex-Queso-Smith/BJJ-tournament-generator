@@ -1,5 +1,6 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
+import DropZone from 'react-dropzone';
 
 import AcademyInput from '../components/AcademyInput'
 
@@ -13,12 +14,14 @@ class EditAcademyForm extends React.Component {
       state: "",
       zipcode: "",
       website: "",
+      file: [],
       errors: {}
     };
     this.handleChange = this.handleChange.bind(this)
     this.validateEntry = this.validateEntry.bind(this)
     this.handleClear = this.handleClear.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.onDrop = this.onDrop.bind(this);
   }
 
   componentDidMount(){
@@ -68,6 +71,14 @@ class EditAcademyForm extends React.Component {
     })
   }
 
+  onDrop(file){
+    if(file.length == 1) {
+      this.setState({ file: file })
+    } else {
+      this.setState({ message: 'You can only upload one photo per Academy' })
+    }
+  }
+
   handleSubmit(event){
     event.preventDefault();
     Object.keys(this.state).forEach(key => {
@@ -83,6 +94,7 @@ class EditAcademyForm extends React.Component {
       newAcademy.append("state", this.state.state);
       newAcademy.append("zipcode", this.state.zipcode);
       newAcademy.append("website", this.state.website);
+      newAcademy.append("academy_photo", this.state.file[0])
 
       this.editAcademy(newAcademy);
       this.handleClear();
@@ -174,6 +186,19 @@ class EditAcademyForm extends React.Component {
             handleChange={this.handleChange}
             content={this.state.website}
           />
+          <div className="dropzone">
+            <DropZone onDrop={this.onDrop} >
+              <p>Drop Academy Logo / Photo here or click to upload file</p>
+            </DropZone>
+          </div>
+          <aside>
+            <h2>Dropped Files</h2>
+            <ul>
+              {
+                this.state.file.map(f => <li key={f.name}> {f.name} - {f.size} bytes</li>)
+              }
+            </ul>
+          </aside>
         <button id="form-button" type="submit" className="button medium hover-button" value="Submit">Edit Your Academy</button>
       </form>
     )

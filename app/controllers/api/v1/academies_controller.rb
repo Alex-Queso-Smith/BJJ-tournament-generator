@@ -70,7 +70,8 @@ class Api::V1::AcademiesController < ApiController
         :city,
         :state,
         :zipcode,
-        :website
+        :website,
+        :academy_photo
       )
   end
 end

@@ -6,5 +6,6 @@ class AcademySerializer < ActiveModel::Serializer
     :state,
     :zipcode,
     :website,
-    :user_id
+    :user_id,
+    :academy_photo
 end
