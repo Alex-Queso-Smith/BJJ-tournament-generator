@@ -8,6 +8,8 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :belt, presence: true
-  
+
+  mount_uploader :profile_photo, ProfilePhotoUploader
+
   belongs_to :academy, optional: true
 end
