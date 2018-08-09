@@ -1,5 +1,6 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
+import DropZone from 'react-dropzone';
 
 import AcademyInput from '../components/AcademyInput'
 
@@ -13,6 +14,7 @@ class AcademyFormContainer extends React.Component {
       state: "",
       zipcode: "",
       website: "",
+      file: [],
       errors: {}
     };
     this.handleClear = this.handleClear.bind(this)
@@ -20,6 +22,7 @@ class AcademyFormContainer extends React.Component {
     this.validateEntry = this.validateEntry.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.createAcademy = this.createAcademy.bind(this)
+    this.onDrop = this.onDrop.bind(this)
   }
 
   handleChange(event){
@@ -59,6 +62,7 @@ class AcademyFormContainer extends React.Component {
       newAcademy.append("state", this.state.state);
       newAcademy.append("zipcode", this.state.zipcode);
       newAcademy.append("website", this.state.website);
+      newAcademy.append("academy_photo", this.state.file[0])
 
       this.createAcademy(newAcademy);
       this.handleClear();
@@ -93,8 +97,17 @@ class AcademyFormContainer extends React.Component {
       state: "",
       zipcode: "",
       website: "",
+      file: [],
       errors: {}
     })
+  }
+
+  onDrop(file){
+    if(file.length == 1) {
+      this.setState({ file: file })
+    } else {
+      this.setState({ message: 'You can only upload one photo per Academy' })
+    }
   }
 
   render(){
@@ -148,6 +161,19 @@ class AcademyFormContainer extends React.Component {
           handleChange={this.handleChange}
           content={this.state.website}
         />
+        <div className="dropzone">
+          <DropZone onDrop={this.onDrop} >
+            <p>Drop Academy Logo / Photo here or click to upload file</p>
+          </DropZone>
+        </div>
+        <aside>
+          <h2>Dropped Files</h2>
+          <ul>
+            {
+              this.state.file.map(f => <li key={f.name}> {f.name} - {f.size} bytes</li>)
+            }
+          </ul>
+        </aside>
       <button id="form-button" type="submit" className="button medium hover-button" value="Submit">Create Academy</button>
       </form>
     )

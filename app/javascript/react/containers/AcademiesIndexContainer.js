@@ -63,6 +63,7 @@ class AcademiesIndexContainer extends React.Component {
               state={academy.state}
               zipcode={academy.zipcode}
               website={academy.zipcode}
+              photo={academy.academy_photo}
             />
         )
       })
