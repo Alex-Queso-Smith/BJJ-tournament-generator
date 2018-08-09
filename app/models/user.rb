@@ -12,4 +12,8 @@ class User < ApplicationRecord
   mount_uploader :profile_photo, ProfilePhotoUploader
 
   belongs_to :academy, optional: true
+
+  def name_with_nickname
+    "#{self.first_name} '#{self.nickname}' #{self.last_name}"
+  end
 end
