@@ -49,6 +49,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'active_model_serializers'
 gem 'pry-rails', group: [:development, :test]
 gem 'jquery-rails'
+gem "fog-aws", group: [:production, :development]
+gem "fog", group: [:production, :development]
 gem 'dotenv-rails', group: [:development, :test]
 gem 'rspec-rails', group: [:development, :test]
 gem 'capybara', group: [:development, :test]
@@ -58,6 +60,7 @@ gem 'factory_bot_rails', group: [:development, :test, :production]
 gem 'database_cleaner', group: [:development, :test]
 gem 'valid_attribute', group: [:development, :test]
 gem 'shoulda-matchers', group: [:development, :test], require: false
+gem 'carrierwave'
 gem 'devise'
 gem 'foundation-rails'
 gem 'autoprefixer-rails'
