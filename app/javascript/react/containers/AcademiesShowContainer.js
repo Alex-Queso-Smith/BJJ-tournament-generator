@@ -3,12 +3,19 @@ import { Link} from 'react-router';
 
 import EditAcademyLink from '../components/EditAcademyLink'
 import AcademyShowTile from '../components/AcademyShowTile'
+import AcademyMenu from './AcademyMenu'
 
 class AcademiesShowContainer extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       academy: {},
+      students: [],
+      whiteBelts: [],
+      blueBelts: [],
+      purpleBelts: [],
+      brownBelts: [],
+      blackBelts: [],
       currentUser: null,
       adminStatus: null
     };
@@ -33,7 +40,13 @@ class AcademiesShowContainer extends React.Component {
       this.setState({
         academy: body.academy,
         adminStatus: body.admin_status,
-        currentUser: body.user_id
+        currentUser: body.user_id,
+        students: body.students,
+        whiteBelts: body.white_belts,
+        blueBelts: body.blue_belts,
+        purpleBelts: body. purple_belts,
+        brownBelts: body.brownBelts,
+        blackBelts: body.black_belts
       })
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
@@ -52,6 +65,10 @@ class AcademiesShowContainer extends React.Component {
 
     return(
       <div>
+      <AcademyMenu
+        academyName={this.state.academy.name}
+        students={this.state.students}
+      />
       <AcademyShowTile
         id={this.state.academy.id}
         name={this.state.academy.name}

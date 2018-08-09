@@ -14,7 +14,7 @@ class AcademyShowTile extends React.Component {
 
     return(
       <div className="show-tile">
-      {this.props.name}
+      Academy Show Tile
       </div>
     )
   }

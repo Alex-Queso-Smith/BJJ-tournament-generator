@@ -8,8 +8,9 @@ class AcademiesIndexContainer extends React.Component {
     super(props);
     this.state = {
       academies: [],
+      currentUserAcademyId: null,
       adminStatus: false,
-      instructorStatus: false
+      instructorStatus: false,
     };
   }
 
@@ -31,7 +32,8 @@ class AcademiesIndexContainer extends React.Component {
       this.setState({
         academies: body.academies,
         adminStatus: body.admin_status,
-        instructorStatus: body.instructor_status
+        instructorStatus: body.instructor_status,
+        currentUserAcademyId: body.current_user_academy_id
       })
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`))
@@ -42,7 +44,7 @@ class AcademiesIndexContainer extends React.Component {
     let academiesArray;
     let newAcademyButton;
 
-    if(instructorStatus || adminStatus){
+    if(instructorStatus && !this.state.currentUserAcademyId || adminStatus){
       newAcademyButton =
       <Link to="/academies/new">
         <button className="button medium hover-button">
