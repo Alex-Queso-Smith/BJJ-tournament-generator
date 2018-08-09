@@ -35,4 +35,10 @@ input:hover {
 
 #photo-button {
   border: none;
+  float: left;
+  width: 85%;
+}
+
+#update-button {
+  margin-left: 10rem;
 }

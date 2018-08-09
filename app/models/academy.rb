@@ -8,4 +8,8 @@ class Academy < ApplicationRecord
   belongs_to :user
 
   mount_uploader :academy_photo, AcademyPhotoUploader
+
+  def name_with_address
+    "#{self.name} - #{self.address}, #{self.city} #{self.state}"
+  end
 end
