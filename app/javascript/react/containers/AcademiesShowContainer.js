@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link} from 'react-router';
 
+import EditAcademyLink from '../components/EditAcademyLink'
 import AcademyShowTile from '../components/AcademyShowTile'
 
 class AcademiesShowContainer extends React.Component {
@@ -10,6 +12,7 @@ class AcademiesShowContainer extends React.Component {
       currentUser: null,
       adminStatus: null
     };
+    this.academyOwnerCheck = this.academyOwnerCheck.bind(this)
   }
 
   componentDidMount(){
@@ -36,7 +39,17 @@ class AcademiesShowContainer extends React.Component {
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
+  academyOwnerCheck(userId){
+    return userId == this.state.academy.user_id
+  }
+
   render(){
+    let editAcademyButton;
+
+    if(this.academyOwnerCheck(this.state.currentUser) || this.state.adminStatus){
+        editAcademyButton = <EditAcademyLink id={this.props.id} />
+      }
+
     return(
       <div>
       <AcademyShowTile
@@ -46,6 +59,7 @@ class AcademiesShowContainer extends React.Component {
         academyOwner={this.state.academy.user_id}
         userId={this.state.currentUser}
       />
+      {editAcademyButton}
       </div>
     )
   }

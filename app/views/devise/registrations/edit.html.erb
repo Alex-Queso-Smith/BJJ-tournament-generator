@@ -5,40 +5,118 @@
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <%= devise_error_messages! %>
 
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <div class="grid-x grid-padding-x">
+      <div class="field cell">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
     </div>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>
-
-    <div class="field">
-      <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-      <%= f.password_field :password, autocomplete: "off" %>
-      <% if @minimum_password_length %>
+    <div class="grid-x grid-padding-x">
+      <div class="field cell">
+        <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+        <%= f.password_field :password, autocomplete: "off" %>
+        <% if @minimum_password_length %>
         <br />
         <em><%= @minimum_password_length %> characters minimum</em>
-      <% end %>
+        <% end %>
+      </div>
     </div>
 
-    <div class="field">
-      <%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <div class="grid-x grid-padding-x">
+      <div class="field cell">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off" %>
+      </div>
     </div>
 
-    <div class="field">
-      <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-      <%= f.password_field :current_password, autocomplete: "off" %>
+    <div class="grid-x grid-padding-x">
+      <div class="field small-4 cell">
+        <%= f.label :first_name, "First Name" %>
+        <%= f.text_field :first_name, autocomplete: "off", placeholder: "First Name" %>
+      </div>
+
+      <div class="field small-4 cell">
+        <%= f.label :last_name, "Last Name" %>
+        <%= f.text_field :last_name, autocomplete: "off", placeholder: "Last Name" %>
+      </div>
+
+      <div class="field small-4 cell">
+        <%= f.label :nickname %>
+        <%= f.text_field :nickname, autocomplete: "off", placeholder: "Optional" %>
+      </div>
     </div>
 
-    <div class="field">
-      <%= f.file_field :profile_photo, class: "hover-button", id: "photo-button" %>
+    <div class="grid-x grid-padding-x">
+      <fieldset class="field small-12 cell">
+        <label class="academy" for="academy">Select Your Academy</label>
+        <%= f.select(:academy, options_from_collection_for_select(
+          Academy.all,:id, :name_with_address)) %>
+        </fieldset>
+      </div>
+
+    <div class="grid-x grid-padding-x">
+      <fieldset class="field small-12 cell">
+        <label class="belt" for="belt">Select Belt</label>
+        <%= f.select(:belt, options_for_select([
+          ["White", "White"],
+          ["Blue", "Blue"],
+          ["Purple", "Purple"],
+          ["Brown", "Brown"],
+          ["Black", "Black"]
+          ])) %>
+      </fieldset>
     </div>
-    <button type="submit" class="button medium hover-button-yellow" value="Submit">
-      Update
-    </button>
+
+    <div class="grid-x grid-padding-x">
+      <fieldset class="field small-12 cell">
+        <legend>Select stripes</legend>
+        <%= f.radio_button(:stripes, "0") %>
+        <%= f.label(:zero_stripes, "0") %>
+
+        <%= f.radio_button(:stripes, "1") %>
+        <%= f.label(:one_stripe, "1") %>
+
+        <%= f.radio_button(:stripes, "2") %>
+        <%= f.label(:two_stripe, "2") %>
+
+        <%= f.radio_button(:stripes, "3") %>
+        <%= f.label(:three_stripe, "3") %>
+
+        <%= f.radio_button(:stripes, "4") %>
+        <%= f.label(:four_stripe, "4") %>
+      </fieldset>
+    </div>
+
+    <div class="grid-x grid-padding-x checkbox instructor">
+      <fieldset class="field cell">
+        <%= f.check_box(:instructor) %>
+        <%= f.label(:instructor, "Instructor? (check only if you wish to create an Academy)") %>
+      </fieldset>
+    </div>
+
+    <div class="grid-x grid-padding-x">
+      <div class="field cell">
+        <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+        <%= f.password_field :current_password, autocomplete: "off" %>
+      </div>
+    </div>
+
+
+    <div class="grid-x grid-padding-x">
+      <div class="field cell">
+        <%= f.file_field :profile_photo, class: "hover-button", id: "photo-button" %>
+      </div>
+    </div>
+
+    <div class="grid-x grid-padding-x">
+      <button id="update-button" type="submit" class="button medium hover-button-yellow" value="Submit">
+        Update Profile
+      </button>
+    </div>
   <% end %>
 
   <h3 class="">Cancel my account</h3>
