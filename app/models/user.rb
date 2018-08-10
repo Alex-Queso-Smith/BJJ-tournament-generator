@@ -16,7 +16,4 @@ class User < ApplicationRecord
   has_many :tourney_rosters
   has_many :tournaments, through: :tourney_rosters
 
-  def name_with_nickname
-    "#{self.first_name} '#{self.nickname}' #{self.last_name}"
-  end
 end

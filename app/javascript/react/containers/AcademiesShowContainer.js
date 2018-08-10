@@ -44,7 +44,7 @@ class AcademiesShowContainer extends React.Component {
         students: body.students,
         whiteBelts: body.white_belts,
         blueBelts: body.blue_belts,
-        purpleBelts: body. purple_belts,
+        purpleBelts: body.purple_belts,
         brownBelts: body.brownBelts,
         blackBelts: body.black_belts
       })

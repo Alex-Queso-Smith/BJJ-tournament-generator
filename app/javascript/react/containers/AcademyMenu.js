@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router'
 
 class AcademyMenu extends React.Component {
   constructor(props){
@@ -18,9 +19,15 @@ class AcademyMenu extends React.Component {
 
     if(this.props.students.length != 0){
       students = this.props.students.map((student) => {
-        return(
-          <li key={student.id}><a>{`${student.first_name} '${student.nickname}' ${student.last_name}`}</a></li>
-        )
+        if(student.nickname){
+          return(
+            <li key={student.id}><a>{`${student.first_name} '${student.nickname}' ${student.last_name}`}</a></li>
+          )
+        } else {
+          return (
+            <li key={student.id}><a>{`${student.first_name} ${student.last_name}`}</a></li>
+          )
+        }
       })
     }
 

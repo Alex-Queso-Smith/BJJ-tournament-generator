@@ -54,7 +54,7 @@ class Api::V1::AcademiesController < ApiController
     if new_academy.save
       render json: { academy: new_academy }
     else
-      render json: { errors: new_academy.errors }
+      render json: { errors: new_academy.errors }, status: 422
     end
   end
 
