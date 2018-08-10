@@ -4,4 +4,7 @@ class Tournament < ApplicationRecord
   validates :winner, presence: true
 
   belongs_to :academy
+
+  has_many :tourney_rosters
+  has_many :users, through: :tourney_rosters
 end

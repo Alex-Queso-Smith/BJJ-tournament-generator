@@ -13,6 +13,9 @@ class User < ApplicationRecord
 
   belongs_to :academy, optional: true
 
+  has_many :tourney_rosters
+  has_many :tournaments, through: :tourney_rosters
+
   def name_with_nickname
     "#{self.first_name} '#{self.nickname}' #{self.last_name}"
   end
