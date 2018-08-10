@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TournamentInput from '../components/TournamentInput'
+import TournamentInput from '../components/TournamentInput';
 
 class TournamentFormController extends React.Component {
   constructor(props){
