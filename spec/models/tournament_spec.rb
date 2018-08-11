@@ -8,6 +8,7 @@ RSpec.describe Tournament, type: :model do
     let!(:tournament2) { FactoryBot.build(:tournament, academy: academy, start_date: "") }
     let!(:tournament3) { FactoryBot.build(:tournament, academy: academy, belt: "") }
     let!(:tournament4) { FactoryBot.build(:tournament) }
+    let!(:tournament5) { FactoryBot.build(:tournament, gender: "") }
 
     it "is valid with all required fields filled in" do
       expect(tournament1).to be_valid
@@ -23,6 +24,10 @@ RSpec.describe Tournament, type: :model do
 
     it "is invalid with academy missing" do
       expect(tournament4).to_not be_valid
+    end
+
+    it "is invalid with gender missing" do
+      expect(tournament5).to_not be_valid
     end
   end
 end

@@ -44,7 +44,7 @@ class AcademiesShowContainer extends React.Component {
         students: body.students,
         whiteBelts: body.white_belts,
         blueBelts: body.blue_belts,
-        purpleBelts: body. purple_belts,
+        purpleBelts: body.purple_belts,
         brownBelts: body.brownBelts,
         blackBelts: body.black_belts
       })
@@ -57,10 +57,11 @@ class AcademiesShowContainer extends React.Component {
   }
 
   render(){
+    
     let editAcademyButton;
 
     if(this.academyOwnerCheck(this.state.currentUser) || this.state.adminStatus){
-        editAcademyButton = <EditAcademyLink id={this.props.id} />
+        editAcademyButton = <EditAcademyLink id={this.props.params.id} />
       }
 
     return(
@@ -68,6 +69,7 @@ class AcademiesShowContainer extends React.Component {
       <AcademyMenu
         academyName={this.state.academy.name}
         students={this.state.students}
+        academyId={this.props.params.id}
       />
       <AcademyShowTile
         id={this.state.academy.id}
