@@ -5,6 +5,7 @@ import AcademiesIndexContainer from './AcademiesIndexContainer'
 import AcademyFormContainer from './AcademyFormContainer'
 import AcademiesShowContainer from './AcademiesShowContainer'
 import EditAcademyForm from './EditAcademyForm'
+import TournamentFormContainer from './TournamentFormContainer'
 
 export const App = (props) => {
   return (
@@ -15,6 +16,7 @@ export const App = (props) => {
         <Route path='/academies/new' component={AcademyFormContainer} />
         <Route path='/academies/:id' component={AcademiesShowContainer} />
         <Route path='/academies/:id/edit' component={EditAcademyForm} />
+        <Route path='/academies/:id/tournaments/new' component={TournamentFormContainer} />
       </Route>
     </Router>
   )

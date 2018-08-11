@@ -5,8 +5,8 @@ class Api::V1::TournamentsController < ApiController
   end
 
   def create
-    new_tournament = Tournament.new
-    new_tournament.academy = Academy.find(params[:id])
+    new_tournament = Tournament.new(tournament_params)
+    new_tournament.academy = Academy.find(params[:academy_id])
 
     if new_tournament.save
       render json: { tournament: new_tournament }
@@ -20,10 +20,11 @@ class Api::V1::TournamentsController < ApiController
   def tournament_params
     params
       .permit(
+        :gender,
         :belt,
         :weight,
         :start_date,
-        :weight
+        :academy_id
       )
   end
 end

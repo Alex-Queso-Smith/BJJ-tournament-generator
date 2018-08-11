@@ -21,11 +21,11 @@ class AcademyMenu extends React.Component {
       students = this.props.students.map((student) => {
         if(student.nickname){
           return(
-            <li key={student.id}><a>{`${student.first_name} '${student.nickname}' ${student.last_name}`}</a></li>
+            <li key={student.id}>{`${student.first_name} '${student.nickname}' ${student.last_name}`}</li>
           )
         } else {
           return (
-            <li key={student.id}><a>{`${student.first_name} ${student.last_name}`}</a></li>
+            <li key={student.id}>{`${student.first_name} ${student.last_name}`}</li>
           )
         }
       })
@@ -37,6 +37,11 @@ class AcademyMenu extends React.Component {
           <div className="top-bar-left">
             <ul className="dropdown menu" data-dropdown-menu>
               <li className="menu-text">{this.props.academyName}</li>
+
+                <Link className="menu-text" to={`/academies/${this.props.academyId}/tournaments/new`}>
+                  Create Tournament
+                </Link>
+
               <li>
                 <a>Students</a>
                 <ul className="menu vertical">
