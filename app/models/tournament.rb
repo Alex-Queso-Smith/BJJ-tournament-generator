@@ -4,6 +4,6 @@ class Tournament < ApplicationRecord
   validates :gender, presence: true
   belongs_to :academy
 
-  has_many :tourney_rosters
+  has_many :tourney_rosters, dependent: :destroy
   has_many :users, through: :tourney_rosters
 end
