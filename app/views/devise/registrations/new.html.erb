@@ -47,7 +47,7 @@
     <div class="grid-x grid-padding-x">
       <fieldset class="field small-12 cell">
         <%= f.label :academy, "Select Your Academy (leave blank if you wish to create an Academy)" %>
-        <%= f.collection_select :academy, Academy.all, :id, :name_with_address, include_blank: true %>
+        <%= f.collection_select :academy_id, Academy.all, :id, :name_with_address, include_blank: true %>
         </fieldset>
       </div>
     </div>

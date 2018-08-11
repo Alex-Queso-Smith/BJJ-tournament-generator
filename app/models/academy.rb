@@ -40,4 +40,8 @@ class Academy < ApplicationRecord
   def black_belts
     User.where(academy_id: self.id, belt: "Black")
   end
+
+  def open_tournaments
+    Tournament.where(academy_id: self.id)
+  end
 end

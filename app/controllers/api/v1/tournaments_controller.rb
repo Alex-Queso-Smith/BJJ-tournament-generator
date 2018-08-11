@@ -15,6 +15,14 @@ class Api::V1::TournamentsController < ApiController
     end
   end
 
+  def show
+
+    tournament = Tournament.find(params[:id])
+    entrants = tournament.users
+
+    render json: { tournament: tournament, current_user_id: current_user.id, entrants: entrants }
+  end
+
   private
 
   def tournament_params

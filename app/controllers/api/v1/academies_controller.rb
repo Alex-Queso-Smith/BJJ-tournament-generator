@@ -40,6 +40,7 @@ class Api::V1::AcademiesController < ApiController
       purple_belts: academy.purple_belts,
       brown_belts: academy.brown_belts,
       black_belts: academy.black_belts,
+      open_tournaments: academy.open_tournaments
     }
   end
 

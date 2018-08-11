@@ -16,6 +16,7 @@ class AcademiesShowContainer extends React.Component {
       purpleBelts: [],
       brownBelts: [],
       blackBelts: [],
+      openTournaments: [],
       currentUser: null,
       adminStatus: null
     };
@@ -46,7 +47,8 @@ class AcademiesShowContainer extends React.Component {
         blueBelts: body.blue_belts,
         purpleBelts: body.purple_belts,
         brownBelts: body.brownBelts,
-        blackBelts: body.black_belts
+        blackBelts: body.black_belts,
+        openTournaments: body.open_tournaments
       })
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
@@ -57,7 +59,7 @@ class AcademiesShowContainer extends React.Component {
   }
 
   render(){
-    
+
     let editAcademyButton;
 
     if(this.academyOwnerCheck(this.state.currentUser) || this.state.adminStatus){
@@ -70,6 +72,7 @@ class AcademiesShowContainer extends React.Component {
         academyName={this.state.academy.name}
         students={this.state.students}
         academyId={this.props.params.id}
+        openTournaments={this.state.openTournaments}
       />
       <AcademyShowTile
         id={this.state.academy.id}
