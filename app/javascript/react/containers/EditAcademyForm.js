@@ -2,6 +2,7 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import DropZone from 'react-dropzone';
 
+import BackButton from '../components/BackButton'
 import AcademyInput from '../components/AcademyInput'
 
 class EditAcademyForm extends React.Component {
@@ -200,6 +201,8 @@ class EditAcademyForm extends React.Component {
             </ul>
           </aside>
         <button id="form-button" type="submit" className="button medium hover-button" value="Submit">Edit Your Academy</button>
+        <BackButton
+        />
       </form>
     )
   }
