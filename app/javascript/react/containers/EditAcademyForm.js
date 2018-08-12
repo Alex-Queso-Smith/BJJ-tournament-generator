@@ -121,18 +121,18 @@ class EditAcademyForm extends React.Component {
      method: 'PATCH',
      body: payload
    })
-     .then(response => {
-       if(response.ok){
-         return response
-       } else {
-         let errorMessage = `${response.status} (${response.statusText})`,
-             error = new Error(errorMessage)
-         throw(error)
-       }
-     })
-     .then(response => response.json())
-     .then(body => browserHistory.push(`/academies/${this.props.params.id}`))
-     .catch(error => console.error(`Error in fetch: ${error.message}`));
+   .then(response => {
+     if(response.ok){
+       return response
+     } else {
+       let errorMessage = `${response.status} (${response.statusText})`,
+           error = new Error(errorMessage)
+       throw(error)
+     }
+   })
+   .then(response => response.json())
+   .then(body => browserHistory.push(`/academies/${this.props.params.id}`))
+   .catch(error => console.error(`Error in fetch: ${error.message}`));
  }
 
 

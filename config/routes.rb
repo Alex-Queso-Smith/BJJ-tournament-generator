@@ -20,6 +20,7 @@ Rails.application.routes.draw do
         resources :tourney_rosters, only: [:create, :update]
       end
       resources :tourney_rosters, only: [:destroy]
+      resources :rounds, only: [:update]
     end
   end
 end

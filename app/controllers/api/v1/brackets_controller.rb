@@ -37,16 +37,16 @@ class Api::V1::BracketsController < ApiController
       first_entrant = ''
       second_entrant = ''
 
-      if first_e_ob[:nickname] == true
-        first_entrant = first_e_ob[:first_name] + ' ' + first_e_ob[:nickname] + ' ' + first_e_ob[:last_name]
+      if !first_e_ob[:nickname].nil?
+        first_entrant = "#{first_e_ob[:first_name]} '#{first_e_ob[:nickname]}' #{first_e_ob[:last_name]}"
       else
-        first_entrant = first_e_ob[:first_name] + ' ' + first_e_ob[:last_name]
+        first_entrant = "#{first_e_ob[:first_name]} #{first_e_ob[:last_name]}"
       end
 
-      if second_e_ob[:nickname] == true
-        second_entrant = second_e_ob[:first_name] + ' ' + second_e_ob[:nickname] + ' ' + second_e_ob[:last_name]
+      if !second_e_ob[:nickname].nil?
+        second_entrant = "#{second_e_ob[:first_name]} '#{second_e_ob[:nickname]}' #{second_e_ob[:last_name]}"
       else
-        second_entrant = second_e_ob[:first_name] + ' ' + second_e_ob[:last_name]
+        second_entrant = "#{second_e_ob[:first_name]} #{second_e_ob[:last_name]}"
       end
 
       new_round = Round.new(

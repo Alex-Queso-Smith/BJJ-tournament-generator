@@ -19,6 +19,9 @@ class TournamentShow extends React.Component {
       rosterId: false,
       currentBracketId: null,
       bracket1Id: null,
+      bracket2Id: null,
+      bracket3Id: null,
+      bracket1Winners: [],
       tournamentReady: false,
       tournamentBegun: false,
       instructorStatus: false,
@@ -30,6 +33,7 @@ class TournamentShow extends React.Component {
     this.deleteEntrant = this.deleteEntrant.bind(this)
     this.startTournament = this.startTournament.bind(this)
     this.handleTournamentStart = this.handleTournamentStart.bind(this)
+    this.updateRoundWinner = this.updateRoundWinner.bind(this)
   }
 
   componentDidMount(){
@@ -61,7 +65,8 @@ class TournamentShow extends React.Component {
         entrants: body.entrants,
         rosterId: body.roster_id,
         instructorStatus: body.instructor_status,
-        initialRounds: body.current_rounds
+        initialRounds: body.initial_rounds,
+        bracket1Winners: body.bracket1_winners
       })
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
@@ -176,6 +181,36 @@ class TournamentShow extends React.Component {
     this.startTournament(payload);
   }
 
+  updateRoundWinner(winner, id){
+    fetch(`/api/v1/rounds/${id}.json`, {
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      method: 'PATCH',
+      body: JSON.stringify(winner)
+    })
+    .then(response => {
+      if(response.ok){
+        return response
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage)
+        throw(error)
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
+      
+      let newWinners = this.state.bracket1Winners.filter( entrant => {
+        return entrant != body.uncheckedEntrant
+      })
+      this.setState({
+        bracket1Winners: newWinners,
+        initialRounds: body.rounds
+      })
+    })
+    .catch(error => console.error(`Error in fetch: ${error.message}`));
+  }
+
   render(){
     let signUpButton, tournamentTile, startTournamentButton;
 
@@ -221,6 +256,9 @@ class TournamentShow extends React.Component {
         <ActiveTournamentTile
           tournamentId={this.props.params.id}
           initialRounds={this.state.initialRounds}
+          currentBracketId={this.state.currentBracketId}
+          updateRoundWinner={this.updateRoundWinner}
+          roundsRemaining={this.state.bracket1Winners}
         />
     }
 
