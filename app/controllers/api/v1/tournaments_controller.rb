@@ -21,7 +21,6 @@ class Api::V1::TournamentsController < ApiController
     entrants = tournament.users
 
     roster_id = false
-
     if TourneyRoster.find_by(tournament: tournament, user: current_user)
       roster_id = TourneyRoster.find_by(tournament: tournament, user: current_user).id
     end

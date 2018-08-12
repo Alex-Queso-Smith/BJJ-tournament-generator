@@ -19,8 +19,7 @@ class TournamentShow extends React.Component {
       rosterId: false,
       tournamentReady: false,
       tournamentBegun: false,
-      instructorStatus: false,
-      spotsLeft: 8
+      instructorStatus: false
     };
     this.createEntrant = this.createEntrant.bind(this)
     this.handleSubmitEntrantClick = this.handleSubmitEntrantClick.bind(this)
@@ -43,8 +42,6 @@ class TournamentShow extends React.Component {
     })
     .then(response => response.json())
     .then(body => {
-      let spots = 8 - body.entrants.length
-
       this.setState({
         belt: body.tournament.belt,
         startDate: body.tournament.start_date,
@@ -55,8 +52,7 @@ class TournamentShow extends React.Component {
         currentUserId: body.current_user_id,
         entrants: body.entrants,
         rosterId: body.roster_id,
-        instructorStatus: body.instructor_status,
-        spotsLeft: spots
+        instructorStatus: body.instructor_status
       })
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
@@ -135,27 +131,13 @@ class TournamentShow extends React.Component {
   }
 
   render(){
-    let entrants, signUpButton, tournamentSpots, tournamentTile;
-
-    if(this.state.spotsLeft != 0){
-      tournamentSpots = <h2>{this.state.spotsLeft} Spots Left to Fill!</h2>
-    } else {
-      tournamentSpots = <h2>Tournament Filled!</h2>
-    }
+    let signUpButton, tournamentTile;
 
     let handleDeleteEntrant = () => {
       this.deleteEntrant(this.state.currentUserId)
     }
 
-    if(this.state.entrants.length != 0){
-      entrants = this.state.entrants.map((entrant) => {
-        return(
-          <h4 key={entrant.id}>{entrant.first_name}</h4>
-        )
-      })
-    }
-
-    if(this.state.spotsLeft == 0 && this.state.instructorStatus){
+    if(this.state.entrants.length == 8 && this.state.instructorStatus){
       signUpButton =
       <button className="button medium hover-button-yellow">
         Start the Tournament!
@@ -178,9 +160,9 @@ class TournamentShow extends React.Component {
     if(!this.state.tournamentBegun){
       tournamentTile =
         <WaitingTournamentTile
-          entrants={entrants}
-          tournamentSpots={tournamentSpots}
+          entrants={this.state.entrants}
           signUpButton={signUpButton}
+          tournamentId={this.props.params.id}
         />
     } else {
       tournamentTile =
