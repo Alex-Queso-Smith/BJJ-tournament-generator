@@ -200,7 +200,7 @@ class EditAcademyForm extends React.Component {
               }
             </ul>
           </aside>
-        <button id="form-button" type="submit" className="button medium hover-button" value="Submit">Edit Your Academy</button>
+        <button id="form-button" type="submit" className="button medium hover-button-yellow" value="Submit">Edit Your Academy</button>
         <BackButton
         />
       </form>

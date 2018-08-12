@@ -13,7 +13,7 @@ class User < ApplicationRecord
 
   belongs_to :academy, optional: true
 
-  has_many :tourney_rosters
+  has_many :tourney_rosters, dependent: :destroy
   has_many :tournaments, through: :tourney_rosters
 
 end
