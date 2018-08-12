@@ -1,6 +1,5 @@
 import React from 'react';
 
-import BackButton from '../components/BackButton';
 import WaitingTournamentTile from '../components/WaitingTournamentTile';
 import ActiveTournamentTile from '../components/ActiveTournamentTile';
 
@@ -25,6 +24,7 @@ class TournamentShow extends React.Component {
     this.handleSubmitEntrantClick = this.handleSubmitEntrantClick.bind(this)
     this.checkEntrantStatus = this.checkEntrantStatus.bind(this)
     this.deleteEntrant = this.deleteEntrant.bind(this)
+    this.startTournament = this.startTournament.bind(this)
   }
 
   componentDidMount(){
@@ -130,6 +130,13 @@ class TournamentShow extends React.Component {
     return status
   }
 
+  startTournament(event){
+   event.preventDefault;
+   this.setState({
+     tournamentBegun: true
+   })
+  }
+
   render(){
     let signUpButton, tournamentTile;
 
@@ -139,7 +146,7 @@ class TournamentShow extends React.Component {
 
     if(this.state.entrants.length == 8 && this.state.instructorStatus){
       signUpButton =
-      <button className="button medium hover-button-yellow">
+      <button className="button medium hover-button-yellow" onClick={this.startTournament}>
         Start the Tournament!
       </button>
     } else if (this.checkEntrantStatus(this.state.entrants)){
@@ -180,8 +187,6 @@ class TournamentShow extends React.Component {
         {this.state.winner}<br/>
         {this.state.finished}<br/>
         {tournamentTile}
-        <BackButton
-        />
       </div>
     )
   }

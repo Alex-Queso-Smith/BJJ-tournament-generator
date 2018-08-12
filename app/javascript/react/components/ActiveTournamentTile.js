@@ -11,6 +11,7 @@ class ActiveTournamentTile extends React.Component {
   render(){
     return(
       <div>
+        Started Tournament
       </div>
     )
   }

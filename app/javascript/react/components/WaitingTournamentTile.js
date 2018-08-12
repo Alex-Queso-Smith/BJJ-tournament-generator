@@ -1,5 +1,7 @@
 import React from 'react';
 
+import BackButton from '../components/BackButton';
+
 class WaitingTournamentTile extends React.Component {
   constructor(props){
     super(props);
@@ -35,6 +37,8 @@ class WaitingTournamentTile extends React.Component {
         {entrants}
         {tournamentSpots}
         {this.props.signUpButton}
+        <BackButton
+        />
       </div>
     )
   }
