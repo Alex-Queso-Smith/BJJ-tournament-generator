@@ -4,11 +4,19 @@ class Api::V1::BracketsController < ApiController
     tournament = Tournament.find(params[:tournament_id])
     bracket = Bracket.create(tournament: tournament)
 
-    tournament.update(tournament_begun: true, bracket1_id: bracket.id, current_bracket_id: bracket.id)
+    create_bracket(tournament, bracket)
 
     created_rounds_or_errors = create_rounds(params[:entrants], bracket)
 
-    if created_rounds_or_errors
+    if created_rounds_or_errors && tournament.bracket2_id
+      render json: {
+        bracket: bracket,
+        rounds: created_rounds_or_errors,
+        bracket1_id: tournament.bracket1_id,
+        bracket2_id: tournament.bracket2_id,
+        current_bracket_id: tournament.current_bracket_id
+       }
+    elsif created_rounds_or_errors
       render json: {
         bracket: bracket,
         rounds: created_rounds_or_errors,
@@ -55,6 +63,7 @@ class Api::V1::BracketsController < ApiController
         entrant2: second_entrant
       )
       current_entrants.shift(2)
+
       if new_round.save
         rounds.push(new_round)
       else
@@ -66,6 +75,20 @@ class Api::V1::BracketsController < ApiController
       rounds
     else
       false
+    end
+  end
+
+  def create_bracket(tournament, bracket)
+    if !tournament.bracket1_id.nil?
+      tournament.update(
+        tournament_begun: true,
+        bracket1_id: bracket.id,
+        current_bracket_id: bracket.id)
+    else
+      tournament.update(
+        bracket2_id: bracket.id,
+        current_bracket_id: bracket.id
+      )
     end
   end
 end

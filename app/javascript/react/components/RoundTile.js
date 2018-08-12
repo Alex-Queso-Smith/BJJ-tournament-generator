@@ -28,7 +28,7 @@ class RoundTile extends React.Component {
     };
 
     return(
-      <div>
+      <div className="cell small-4">
         <EntrantTile
           className={this.determineWinnerTile(this.props.winner, this.props.entrant1)}
           entrant={this.props.entrant1}

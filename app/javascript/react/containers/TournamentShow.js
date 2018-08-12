@@ -199,7 +199,7 @@ class TournamentShow extends React.Component {
     })
     .then(response => response.json())
     .then(body => {
-      
+
       let newWinners = this.state.bracket1Winners.filter( entrant => {
         return entrant != body.uncheckedEntrant
       })
@@ -258,7 +258,6 @@ class TournamentShow extends React.Component {
           initialRounds={this.state.initialRounds}
           currentBracketId={this.state.currentBracketId}
           updateRoundWinner={this.updateRoundWinner}
-          roundsRemaining={this.state.bracket1Winners}
         />
     }
 
