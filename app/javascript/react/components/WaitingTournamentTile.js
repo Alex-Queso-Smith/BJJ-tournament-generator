@@ -37,8 +37,7 @@ class WaitingTournamentTile extends React.Component {
         {entrants}
         {tournamentSpots}
         {this.props.signUpButton}
-        <BackButton
-        />
+        
       </div>
     )
   }

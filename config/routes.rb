@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
 
   resources :tournaments, only: [:show] do
+    resources :brackets, only: [:create, :update]
   end
 
   namespace :api do
@@ -14,7 +15,8 @@ Rails.application.routes.draw do
       resources :academies, only: [:index, :show, :new, :create, :update] do
         resources :tournaments, only: [:new, :create]
       end
-      resources :tournaments, only: [:show] do
+      resources :tournaments, only: [:show, :update] do
+        resources :brackets, only: [:create, :update]
         resources :tourney_rosters, only: [:create, :update]
       end
       resources :tourney_rosters, only: [:destroy]
