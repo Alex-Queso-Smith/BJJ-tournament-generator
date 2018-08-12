@@ -4,7 +4,7 @@ class Api::V1::BracketsController < ApiController
     tournament = Tournament.find(params[:tournament_id])
     bracket = Bracket.create(tournament: tournament)
 
-    tournament.update(tournament_begun: true, bracket1_id: bracket.id)
+    tournament.update(tournament_begun: true, bracket1_id: bracket.id, current_bracket_id: bracket.id)
 
     created_rounds_or_errors = create_rounds(params[:entrants], bracket)
 
@@ -12,7 +12,8 @@ class Api::V1::BracketsController < ApiController
       render json: {
         bracket: bracket,
         rounds: created_rounds_or_errors,
-        bracket1_id: tournament.bracket1_id
+        bracket1_id: tournament.bracket1_id,
+        current_bracket_id: tournament.current_bracket_id
        }
     else
       render json: { error: 'Creation Failed' }, status: 422

@@ -17,6 +17,7 @@ class TournamentShow extends React.Component {
       finished: null,
       currentUserId: null,
       rosterId: false,
+      currentBracketId: null,
       bracket1Id: null,
       tournamentReady: false,
       tournamentBegun: false,
@@ -54,11 +55,12 @@ class TournamentShow extends React.Component {
         winner: body.tournament.winner,
         finished: body.tournament.finished,
         tournamentBegun: body.tournament.tournament_begun,
+        currentBracketId: body.tournament.current_bracket_id,
+        bracket1Id: body.tournament.bracket1_id,
         currentUserId: body.current_user_id,
         entrants: body.entrants,
         rosterId: body.roster_id,
         instructorStatus: body.instructor_status,
-        bracket1Id: body.tournament.bracket1_id,
         initialRounds: body.current_rounds
       })
     })
@@ -158,7 +160,8 @@ class TournamentShow extends React.Component {
       this.setState({
         tournamentBegun: true,
         initialRounds: body.rounds,
-        bracket1_Id: body.bracket1_id
+        bracket1_Id: body.bracket1_id,
+        currentBracketId: body.current_bracket_id
       })
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));

@@ -21,13 +21,20 @@ class Api::V1::TournamentsController < ApiController
     entrants = tournament.users
 
     roster_id = false
+
     if TourneyRoster.find_by(tournament: tournament, user: current_user)
       roster_id = TourneyRoster.find_by(tournament: tournament, user: current_user).id
     end
 
+    current_bracket_id = false
+
+    if tournament.current_bracket_id
+      current_bracket_id = tournament.current_bracket_id
+    end
+
     initial_rounds = false
     bracket1_id = tournament.bracket1_id
-
+    
     if bracket1_id
       initial_rounds = Bracket.find_by(bracket1_id).rounds
     end
@@ -37,7 +44,8 @@ class Api::V1::TournamentsController < ApiController
       entrants: entrants,
       roster_id: roster_id,
       instructor_status: current_user.instructor?,
-      initial_rounds: initial_rounds
+      initial_rounds: initial_rounds,
+      current_bracket_id: tournament.current_bracket_id
      }
   end
 
