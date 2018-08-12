@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_10_215755) do
+ActiveRecord::Schema.define(version: 2018_08_12_165440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,11 @@ ActiveRecord::Schema.define(version: 2018_08_10_215755) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "gender", null: false
+    t.boolean "tournament_begun", default: false
+    t.integer "bracket1_id"
+    t.integer "bracket2_id"
+    t.integer "bracket3_id"
+    t.integer "current_bracket_id"
     t.index ["academy_id"], name: "index_tournaments_on_academy_id"
   end
 

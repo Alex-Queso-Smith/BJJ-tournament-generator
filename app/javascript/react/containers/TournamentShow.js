@@ -1,6 +1,6 @@
 import React from 'react';
+import { browserHistory } from 'react-router'
 
-import BackButton from '../components/BackButton';
 import WaitingTournamentTile from '../components/WaitingTournamentTile';
 import ActiveTournamentTile from '../components/ActiveTournamentTile';
 
@@ -17,15 +17,19 @@ class TournamentShow extends React.Component {
       finished: null,
       currentUserId: null,
       rosterId: false,
+      currentBracketId: null,
+      bracket1Id: null,
       tournamentReady: false,
       tournamentBegun: false,
       instructorStatus: false,
-      spotsLeft: 8
+      initialRounds: []
     };
     this.createEntrant = this.createEntrant.bind(this)
     this.handleSubmitEntrantClick = this.handleSubmitEntrantClick.bind(this)
     this.checkEntrantStatus = this.checkEntrantStatus.bind(this)
     this.deleteEntrant = this.deleteEntrant.bind(this)
+    this.startTournament = this.startTournament.bind(this)
+    this.handleTournamentStart = this.handleTournamentStart.bind(this)
   }
 
   componentDidMount(){
@@ -43,8 +47,6 @@ class TournamentShow extends React.Component {
     })
     .then(response => response.json())
     .then(body => {
-      let spots = 8 - body.entrants.length
-
       this.setState({
         belt: body.tournament.belt,
         startDate: body.tournament.start_date,
@@ -52,11 +54,14 @@ class TournamentShow extends React.Component {
         gender: body.tournament.gender,
         winner: body.tournament.winner,
         finished: body.tournament.finished,
+        tournamentBegun: body.tournament.tournament_begun,
+        currentBracketId: body.tournament.current_bracket_id,
+        bracket1Id: body.tournament.bracket1_id,
         currentUserId: body.current_user_id,
         entrants: body.entrants,
         rosterId: body.roster_id,
         instructorStatus: body.instructor_status,
-        spotsLeft: spots
+        initialRounds: body.current_rounds
       })
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
@@ -134,38 +139,67 @@ class TournamentShow extends React.Component {
     return status
   }
 
-  render(){
-    let entrants, signUpButton, tournamentSpots, tournamentTile;
+  startTournament(payload){
+    fetch(`/api/v1/tournaments/${this.props.params.id}/brackets.json`, {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(response => {
+      if(response.ok){
+        return response
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage)
+        throw(error)
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
+      this.setState({
+        tournamentBegun: true,
+        initialRounds: body.rounds,
+        bracket1_Id: body.bracket1_id,
+        currentBracketId: body.current_bracket_id
+      })
+    })
+    .catch(error => console.error(`Error in fetch: ${error.message}`));
+  }
 
-    if(this.state.spotsLeft != 0){
-      tournamentSpots = <h2>{this.state.spotsLeft} Spots Left to Fill!</h2>
-    } else {
-      tournamentSpots = <h2>Tournament Filled!</h2>
+  handleTournamentStart(event){
+    event.preventDefault;
+    let payload = {
+      tournament_begun: true,
+      entrants: this.state.entrants
     }
+    this.startTournament(payload);
+  }
+
+  render(){
+    let signUpButton, tournamentTile, startTournamentButton;
 
     let handleDeleteEntrant = () => {
       this.deleteEntrant(this.state.currentUserId)
     }
 
-    if(this.state.entrants.length != 0){
-      entrants = this.state.entrants.map((entrant) => {
-        return(
-          <h4 key={entrant.id}>{entrant.first_name}</h4>
-        )
-      })
-    }
-
-    if(this.state.spotsLeft == 0 && this.state.instructorStatus){
-      signUpButton =
-      <button className="button medium hover-button-yellow">
+    if(
+      this.state.entrants.length == 8 &&
+      this.state.instructorStatus &&
+      !this.state.tournamentBegun
+      ){
+      startTournamentButton =
+      <button className="button medium hover-button-yellow" onClick={this.handleTournamentStart}>
         Start the Tournament!
       </button>
-    } else if (this.checkEntrantStatus(this.state.entrants)){
+    }
+
+    if (this.checkEntrantStatus(this.state.entrants) && !this.state.instructorStatus){
       signUpButton =
       <button onClick={this.handleSubmitEntrantClick} className="button medium hover-button-yellow">
         Enter this Tournament
       </button>
-    } else {
+    } else if (!this.state.instructorStatus) {
       signUpButton =
       <div>
         <h2>You're Signed Up!</h2>
@@ -178,14 +212,16 @@ class TournamentShow extends React.Component {
     if(!this.state.tournamentBegun){
       tournamentTile =
         <WaitingTournamentTile
-          entrants={entrants}
-          tournamentSpots={tournamentSpots}
+          entrants={this.state.entrants}
           signUpButton={signUpButton}
+          tournamentId={this.props.params.id}
         />
     } else {
       tournamentTile =
-      <ActiveTournamentTile
-      />
+        <ActiveTournamentTile
+          tournamentId={this.props.params.id}
+          initialRounds={this.state.initialRounds}
+        />
     }
 
 
@@ -196,10 +232,8 @@ class TournamentShow extends React.Component {
         {this.state.weight}<br/>
         {this.state.gender}<br/>
         {this.state.winner}<br/>
-        {this.state.finished}<br/>
         {tournamentTile}
-        <BackButton
-        />
+        {startTournamentButton}
       </div>
     )
   }

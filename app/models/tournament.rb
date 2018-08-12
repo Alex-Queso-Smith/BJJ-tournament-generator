@@ -6,4 +6,6 @@ class Tournament < ApplicationRecord
 
   has_many :tourney_rosters, dependent: :destroy
   has_many :users, through: :tourney_rosters
+
+  has_many :brackets
 end
