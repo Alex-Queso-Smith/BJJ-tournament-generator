@@ -44,7 +44,7 @@ class AcademiesIndexContainer extends React.Component {
     let academiesArray;
     let newAcademyButton;
 
-    if(instructorStatus && !this.state.currentUserAcademyId || adminStatus){
+    if(this.state.instructorStatus && !this.state.currentUserAcademyId || adminStatus){
       newAcademyButton =
       <Link to="/academies/new">
         <button className="button medium hover-button">

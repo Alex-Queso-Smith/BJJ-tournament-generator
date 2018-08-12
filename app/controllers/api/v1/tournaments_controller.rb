@@ -30,7 +30,8 @@ class Api::V1::TournamentsController < ApiController
       tournament: tournament,
       current_user_id: current_user.id,
       entrants: entrants,
-      roster_id: roster_id
+      roster_id: roster_id,
+      instructor_status: current_user.instructor?
      }
   end
 
