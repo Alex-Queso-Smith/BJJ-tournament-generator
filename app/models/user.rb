@@ -16,4 +16,11 @@ class User < ApplicationRecord
   has_many :tourney_rosters, dependent: :destroy
   has_many :tournaments, through: :tourney_rosters
 
+  def name_with_nickname
+    if self.nickname
+      "#{self.first_name} '#{self.nickname}' #{self.last_name}"
+    else
+      "#{self.first_name} #{self.last_name}"
+    end
+  end
 end
