@@ -25,13 +25,24 @@ class Api::V1::TournamentsController < ApiController
       roster_id = TourneyRoster.find_by(tournament: tournament, user: current_user).id
     end
 
+    initial_rounds = false
+    bracket1_id = tournament.bracket1_id
+
+    if bracket1_id
+      initial_rounds = Bracket.find_by(bracket1_id).rounds
+    end
     render json: {
       tournament: tournament,
       current_user_id: current_user.id,
       entrants: entrants,
       roster_id: roster_id,
-      instructor_status: current_user.instructor?
+      instructor_status: current_user.instructor?,
+      initial_rounds: initial_rounds
      }
+  end
+
+  def update
+
   end
 
   private
@@ -39,6 +50,7 @@ class Api::V1::TournamentsController < ApiController
   def tournament_params
     params
       .permit(
+        :id,
         :gender,
         :belt,
         :weight,
