@@ -3,6 +3,5 @@ class TournamentsController < ApplicationController
   end
 
   def update
-
   end
 end
