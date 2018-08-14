@@ -29,8 +29,7 @@ class ActiveTournamentTile extends React.Component {
     .then(response => response.json())
     .then(body => {
       this.setState({
-        winner: body.tournament.winner,
-        bracket3Winner: body.bracket3_winner
+        winner: body.tournament.winner
       })
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));

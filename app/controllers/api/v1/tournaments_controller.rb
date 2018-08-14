@@ -1,5 +1,4 @@
 class Api::V1::TournamentsController < ApiController
-
   def new
     new_tournament = Tournament.new
   end
@@ -16,7 +15,6 @@ class Api::V1::TournamentsController < ApiController
   end
 
   def show
-
     tournament = Tournament.find(params[:id])
     entrants = tournament.users
 
@@ -36,9 +34,7 @@ class Api::V1::TournamentsController < ApiController
       bracket1_finished = Bracket.find(bracket1_id).finished
     end
 
-   if initial_rounds
-     bracket1_winners = Bracket.new.determine_bracket_winners(initial_rounds)
-   end
+    bracket1_winners = Bracket.new.determine_bracket_winners(initial_rounds) if initial_rounds
 
     bracket2_rounds = false
     bracket2_id = tournament.bracket2_id
@@ -50,10 +46,7 @@ class Api::V1::TournamentsController < ApiController
       bracket2_finished = Bracket.find(bracket2_id).finished
     end
 
-    if bracket2_rounds
-      bracket2_winners = Bracket.new.determine_bracket_winners(bracket2_rounds)
-    end
-
+    bracket2_winners = Bracket.new.determine_bracket_winners(bracket2_rounds) if bracket2_rounds
 
     bracket3_round = false
     bracket3_id = tournament.bracket3_id
@@ -65,10 +58,7 @@ class Api::V1::TournamentsController < ApiController
       bracket3_finished = Bracket.find(bracket3_id).finished
     end
 
-    if bracket3_round
-      bracket3_winner = Bracket.new.determine_bracket_winners(bracket3_round)
-    end
-
+    bracket3_winner = Bracket.new.determine_bracket_winners(bracket3_round) if bracket3_round
 
     render json: {
       tournament: tournament,
@@ -88,9 +78,7 @@ class Api::V1::TournamentsController < ApiController
        }
   end
 
-  def update
-
-  end
+  def update;end
 
   private
 
