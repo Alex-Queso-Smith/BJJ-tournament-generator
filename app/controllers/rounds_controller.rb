@@ -1,4 +1,3 @@
 class RoundsController < ApplicationController
-  def update    
-  end
+  def update;end
 end

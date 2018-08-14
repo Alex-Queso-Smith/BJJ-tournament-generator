@@ -4,9 +4,7 @@ import { Link } from 'react-router'
 class AcademyMenu extends React.Component {
   constructor(props){
     super(props);
-    this.state = {
-
-    };
+    this.state = {};
   }
 
   componentDidMount(){

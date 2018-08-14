@@ -3,7 +3,7 @@ import { Link} from 'react-router';
 
 import EditAcademyLink from '../components/EditAcademyLink'
 import AcademyShowTile from '../components/AcademyShowTile'
-import AcademyMenu from './AcademyMenu'
+import AcademyMenu from '../components/AcademyMenu'
 
 class AcademiesShowContainer extends React.Component {
   constructor(props){

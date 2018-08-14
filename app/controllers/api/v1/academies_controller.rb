@@ -1,5 +1,4 @@
 class Api::V1::AcademiesController < ApiController
-
   def index
     admin_status = false
     instructor_status = false
@@ -59,8 +58,7 @@ class Api::V1::AcademiesController < ApiController
     end
   end
 
-  def edit
-  end
+  def edit;end
 
   def update
     edited_academy = Academy.find(params[:id])

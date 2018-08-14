@@ -1,5 +1,3 @@
 class AdvanceBracketsController < ApplicationController
-
-  def create
-  end
-end 
+  def create;end
+end
