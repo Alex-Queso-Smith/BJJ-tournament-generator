@@ -17,7 +17,7 @@
     <section class="top-bar-section">
       <div class="left title-button">
         <div class="logo">
-          <h1><i class="ion-trophy"></i>BJJ forge</h1>
+          <h1><i class="ion-trophy"></i>Triangle City</h1>
         </div>
       </div>
     </section>
@@ -25,13 +25,13 @@
       <div class="right">
         <%- if current_user -%>
             <ul class="menu horizontal title-button">
-              <li><%= link_to 'Home', academies_path %></li>
-              <li class=""><%= link_to 'Edit', edit_user_registration_path %></li>
+              <li><%= link_to 'Home', academies_path, id: "home-button" %></li>
+              <li ><%= link_to 'Edit', edit_user_registration_path %></li>
               <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
             </ul>
         <%- else -%>
         <ul class="menu title-button">
-          <li><%= link_to 'Home', academies_path %></li>
+          <li id="home-button"><%= link_to 'Home', academies_path %></li>
           <li><%= link_to 'Sign Up', new_user_registration_path %></li>
           <li><%= link_to 'Sign In', new_user_session_path %></li>
         </ul>
