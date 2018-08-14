@@ -24,6 +24,9 @@ class TournamentShow extends React.Component {
       bracket1Winners: [],
       bracket2Winners: [],
       bracket3Winner: [],
+      bracket1Finished: false,
+      bracket2Finished: false,
+      bracket3Finished: false,
       tournamentReady: false,
       tournamentBegun: false,
       instructorStatus: false,
@@ -44,6 +47,8 @@ class TournamentShow extends React.Component {
     this.handleBracket1Advance = this.handleBracket1Advance.bind(this)
     this.handleBracket2AdvanceClick = this.handleBracket2AdvanceClick.bind(this)
     this.handleBracket2Advance = this.handleBracket2Advance.bind(this)
+    this.handleBracket3AdvanceClick = this.handleBracket3AdvanceClick.bind(this)
+    this.handleBracket3Advance = this.handleBracket3Advance.bind(this)
   }
 
   componentDidMount(){
@@ -80,7 +85,10 @@ class TournamentShow extends React.Component {
         bracket2Rounds: body.bracket2_rounds,
         bracket2Winners: body.bracket2_winners,
         bracket3Round: body.bracket3_round,
-        bracket3Winner: body.bracket3_winner
+        bracket3Winner: body.bracket3_winner,
+        bracket1Finished: body.bracket1_finished,
+        bracket2Finished: body.bracket2_finished,
+        bracket3Finished: body.bracket3_finished
       })
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
@@ -188,7 +196,7 @@ class TournamentShow extends React.Component {
       this.setState({
         tournamentBegun: true,
         initialRounds: body.rounds,
-        bracket1_Id: body.bracket1_id,
+        bracket1Id: body.bracket1_id,
         currentBracketId: body.current_bracket_id
       })
     })
@@ -201,7 +209,7 @@ class TournamentShow extends React.Component {
     let payload = {
       entrants: this.state.bracket1Winners
     }
-    this.handleBracketAdvance(payload);
+    this.handleBracket1Advance(payload);
   }
 
   handleBracket1Advance(payload){
@@ -225,7 +233,8 @@ class TournamentShow extends React.Component {
       this.setState({
         bracket2Id: body.bracket2_id,
         currentBracketId: body.current_bracket_id,
-        bracket2Rounds: body.rounds
+        bracket2Rounds: body.rounds,
+        bracket1Finished: true
       })
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
@@ -261,7 +270,42 @@ class TournamentShow extends React.Component {
       this.setState({
         bracket3Id: body.bracket3_id,
         currentBracketId: body.current_bracket_id,
-        bracket3Round: body.round
+        bracket3Round: body.round,
+        bracket2Finished: true
+      })
+    })
+    .catch(error => console.error(`Error in fetch: ${error.message}`));
+  }
+
+  handleBracket3AdvanceClick(event){
+    event.preventDefault;
+
+    let payload = {
+      winner: this.state.winner
+    }
+    this.handleBracket3Advance(payload);
+  }
+
+  handleBracket3Advance(payload){
+    fetch(`/api/v1/tournaments/${this.props.params.id}/brackets/${this.state.currentBracketId}.json`, {
+      method: 'PATCH',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(response => {
+      if(response.ok){
+        return response
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage)
+        throw(error)
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
+      this.setState({
+        winner: body.winner
       })
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
@@ -417,8 +461,13 @@ class TournamentShow extends React.Component {
           bracket3Winner={this.state.bracket3Winner}
           handleBracket1Advance={this.handleBracket1AdvanceClick}
           handleBracket2Advance={this.handleBracket2AdvanceClick}
+          handleBracket3Advance={this.handleBracket3AdvanceClick}
           secondBracketRounds={this.state.bracket2Rounds}
           finalBracketRound={this.state.bracket3Round}
+          bracket1Status={this.state.bracket1Finished}
+          bracket2Status={this.state.bracket2Finished}
+          bracket3Status={this.state.bracket3Finished}
+          winner={this.state.winner}
         />
     }
 

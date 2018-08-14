@@ -6,15 +6,11 @@ class ActiveTournamentTile extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      bracket1Finished: false,
-      bracket1Winners: [],
-      bracket2Finished: false,
-      bracket2Id: null,
-      bracket3Finished: false,
-      winner: null,
-      currentBracketId: null
+      winner: null
     };
     this.checkIfBracketReady = this.checkIfBracketReady.bind(this)
+    this.checkIfBracketDone = this.checkIfBracketDone.bind(this)
+    this.decoyFunction = this.decoyFunction.bind(this)
   }
 
   componentDidMount(){
@@ -33,8 +29,8 @@ class ActiveTournamentTile extends React.Component {
     .then(response => response.json())
     .then(body => {
       this.setState({
-        bracket1Winners: body.bracket1_winners,
-        bracket2Id: body.tournament.bracket2_id
+        winner: body.tournament.winner,
+        bracket3Winner: body.bracket3_winner
       })
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
@@ -44,8 +40,21 @@ class ActiveTournamentTile extends React.Component {
     return winners.length == length
   }
 
+  checkIfBracketDone(onClick, bracketStatus){
+    if (bracketStatus) {
+      return this.decoyFunction
+    } else {
+      return onClick
+    }
+  }
+
+  decoyFunction(event){
+    event.preventDefault;
+  }
+
   render(){
-    let firstRounds, secondRounds, finalRound, advanceTournamentButton;
+
+    let firstRounds, secondRounds, finalRound, advanceTournamentButton, winner;
 
     let bracket1Ready = this.checkIfBracketReady(this.props.bracket1Winners, 4)
     let bracket2Ready = this.checkIfBracketReady(this.props.bracket2Winners, 2)
@@ -53,23 +62,30 @@ class ActiveTournamentTile extends React.Component {
 
     if (bracket1Ready && bracket2Ready && bracket3Ready) {
       advanceTournamentButton =
-      <button onClick={this.props.handleBracket2Advance} className="button small hover-button-yellow">
+      <button onClick={this.props.handleBracket3Advance} className="button large hover-button-yellow">
         Finish Tournament!
       </button>
     } else if (bracket1Ready && bracket2Ready) {
       advanceTournamentButton =
-      <button onClick={this.props.handleBracket2Advance} className="button small hover-button-yellow">
+      <button onClick={this.props.handleBracket2Advance} className="button large hover-button-yellow">
         Final Bracket!
       </button>
     } else if (bracket1Ready) {
       advanceTournamentButton =
-        <button onClick={this.props.handleBracket1Advance} className="button small hover-button-yellow">
+        <button onClick={this.props.handleBracket1Advance} className="button large hover-button-yellow">
           Next Bracket!
         </button>
     }
 
+
+
     if (this.props.initialRounds) {
       firstRounds = this.props.initialRounds.map((round) => {
+        let updateRoundWinner =
+        this.checkIfBracketDone(
+          this.props.updateRoundWinnerBracket1,
+          this.props.bracket1Status
+        )
         return(
           <RoundTile
             key={round.id}
@@ -77,7 +93,7 @@ class ActiveTournamentTile extends React.Component {
             entrant1={round.entrant1}
             entrant2={round.entrant2}
             winner={round.winner}
-            updateRoundWinner={this.props.updateRoundWinnerBracket1}
+            updateRoundWinner={updateRoundWinner}
           />
         )
       })
@@ -85,6 +101,11 @@ class ActiveTournamentTile extends React.Component {
 
     if (this.props.secondBracketRounds) {
       secondRounds = this.props.secondBracketRounds.map((round) => {
+        let updateRoundWinner =
+        this.checkIfBracketDone(
+          this.props.updateRoundWinnerBracket2,
+          this.props.bracket2Status
+        )
         return(
           <RoundTile
             key={round.id}
@@ -92,7 +113,7 @@ class ActiveTournamentTile extends React.Component {
             entrant1={round.entrant1}
             entrant2={round.entrant2}
             winner={round.winner}
-            updateRoundWinner={this.props.updateRoundWinnerBracket2}
+            updateRoundWinner={updateRoundWinner}
           />
         )
       })
@@ -100,6 +121,11 @@ class ActiveTournamentTile extends React.Component {
 
     if (this.props.finalBracketRound) {
       finalRound = this.props.finalBracketRound.map((round) => {
+        let updateRoundWinner =
+        this.checkIfBracketDone(
+          this.props.updateRoundWinnerBracket3,
+          this.props.bracket3Status
+        )
         return(
           <RoundTile
             key={round.id}
@@ -108,10 +134,14 @@ class ActiveTournamentTile extends React.Component {
             entrant1={round.entrant1}
             entrant2={round.entrant2}
             winner={round.winner}
-            updateRoundWinner={this.props.updateRoundWinnerBracket3}
+            updateRoundWinner={updateRoundWinner}
           />
         )
       })
+    }
+
+    if (this.props.winner) {
+      winner= this.props.winner
     }
 
     return(
@@ -139,7 +169,7 @@ class ActiveTournamentTile extends React.Component {
              </div>
            </div>
         </div>
-        {advanceTournamentButton}
+        {advanceTournamentButton} <span>{winner}</span>
       </div>
     )
   }

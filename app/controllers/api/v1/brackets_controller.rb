@@ -21,5 +21,18 @@ class Api::V1::BracketsController < ApiController
   end
 
   def update
+
+    tournament = Tournament.find(params[:tournament_id])
+    bracket = Bracket.find(params[:id])
+
+    bracket.update(finished: true)
+    winner = bracket.rounds.first.winner
+    tournament.update(winner: winner, finished: true)
+
+    if tournament.update(winner: winner)
+      render json: { winner: winner }
+    else
+      render json: { errors: tournament.errors }, status: 422
+    end
   end
 end

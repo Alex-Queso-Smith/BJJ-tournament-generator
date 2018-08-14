@@ -10,7 +10,7 @@ class Api::V1::FinalRoundsController < ApiController
 
     create_final_round = Round.new.create_advance_rounds(params[:entrants], bracket)
 
-    if created_final_rounds
+    if create_final_round
       render json: {
         bracket: bracket,
         round: create_final_round,

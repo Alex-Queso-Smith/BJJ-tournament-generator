@@ -24,4 +24,15 @@ class Bracket < ApplicationRecord
       current_bracket_id: bracket.id
     )
   end
+
+  def determine_bracket_winners(rounds)
+    winners = []
+
+    rounds.each do |round|
+      if !round.winner.nil?
+        winners.push(round.winner)
+      end
+    end
+    winners
+  end
 end
