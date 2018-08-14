@@ -2,7 +2,7 @@ import React from 'react';
 import { browserHistory } from 'react-router'
 
 import WaitingTournamentTile from '../components/WaitingTournamentTile';
-import ActiveTournamentTile from '../components/ActiveTournamentTile';
+import ActiveTournamentTile from './ActiveTournamentTile';
 
 class TournamentShow extends React.Component {
   constructor(props){

@@ -59,10 +59,9 @@ class AcademiesShowContainer extends React.Component {
   }
 
   render(){
-
     let editAcademyButton;
 
-    if(this.academyOwnerCheck(this.state.currentUser) || this.state.adminStatus){
+    if (this.academyOwnerCheck(this.state.currentUser) || this.state.adminStatus) {
         editAcademyButton = <EditAcademyLink id={this.props.params.id} />
       }
 

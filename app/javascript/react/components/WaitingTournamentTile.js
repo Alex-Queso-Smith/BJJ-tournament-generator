@@ -5,19 +5,14 @@ import BackButton from '../components/BackButton';
 class WaitingTournamentTile extends React.Component {
   constructor(props){
     super(props);
-    this.state = {
-
-    };
-  }
-
-  componentDidMount(){
+    this.state = {};
   }
 
   render(){
 
     let tournamentSpots, entrants;
 
-    if(this.props.entrants.length != 0){
+    if (this.props.entrants.length != 0) {
       entrants = this.props.entrants.map((entrant) => {
         return(
           <h4 key={entrant.id}>{entrant.first_name}</h4>
@@ -25,7 +20,7 @@ class WaitingTournamentTile extends React.Component {
       })
     }
 
-    if(this.props.entrants.length != 8){
+    if (this.props.entrants.length != 8) {
       tournamentSpots = <h2>{ 8 - this.props.entrants.length} Spots Left to Fill!</h2>
     } else {
       tournamentSpots = <h2>Tournament Filled!</h2>
@@ -37,7 +32,6 @@ class WaitingTournamentTile extends React.Component {
         {entrants}
         {tournamentSpots}
         {this.props.signUpButton}
-        
       </div>
     )
   }

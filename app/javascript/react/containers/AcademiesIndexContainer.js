@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router'
 
-import AcademyTile from '../components/AcademyTile'
+import AcademyIndexTile from '../components/AcademyIndexTile'
 
 class AcademiesIndexContainer extends React.Component {
   constructor(props){
@@ -41,10 +41,9 @@ class AcademiesIndexContainer extends React.Component {
 
   render(){
     let { academies, instructorStatus, adminStatus } = this.state
-    let academiesArray;
-    let newAcademyButton;
+    let academiesArray, newAcademyButton;
 
-    if(this.state.instructorStatus && !this.state.currentUserAcademyId || adminStatus){
+    if (this.state.instructorStatus && !this.state.currentUserAcademyId || adminStatus) {
       newAcademyButton =
       <Link to="/academies/new">
         <button className="button medium hover-button">
@@ -53,10 +52,10 @@ class AcademiesIndexContainer extends React.Component {
       </Link>
     }
 
-    if(academies.length != 0){
+    if (academies.length != 0) {
       academiesArray = academies.map((academy) => {
         return(
-            <AcademyTile
+            <AcademyIndexTile
               key={academy.id}
               id={academy.id}
               name={academy.name}
@@ -70,6 +69,7 @@ class AcademiesIndexContainer extends React.Component {
         )
       })
     }
+
     return(
       <div className="grid-container">
         <div className="grid-x grid-padding-x grid-padding-y index-page">

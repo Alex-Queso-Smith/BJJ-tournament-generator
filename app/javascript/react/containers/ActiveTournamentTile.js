@@ -1,6 +1,6 @@
 import React from 'react';
 
-import RoundTile from '../components/RoundTile';
+import RoundTile from './RoundTile';
 
 class ActiveTournamentTile extends React.Component {
   constructor(props){
