@@ -1,10 +1,7 @@
-class TournamentsController < ApplicationController  
-  def new
-  end
+class TournamentsController < ApplicationController
+  def new;end
 
-  def create
-  end
-
-  def show
-  end
+  def create;end
+  
+  def show;end
 end

@@ -1,6 +1,5 @@
 class Api::V1::BracketsController < ApiController
   def create
-
     tournament = Tournament.find(params[:tournament_id])
     bracket = Bracket.create(tournament: tournament)
 
@@ -21,7 +20,6 @@ class Api::V1::BracketsController < ApiController
   end
 
   def update
-
     tournament = Tournament.find(params[:tournament_id])
     bracket = Bracket.find(params[:id])
 

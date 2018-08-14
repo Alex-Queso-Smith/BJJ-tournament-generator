@@ -3,7 +3,7 @@ import { Link} from 'react-router';
 
 import EditAcademyLink from '../components/EditAcademyLink'
 import AcademyShowTile from '../components/AcademyShowTile'
-import AcademyMenu from './AcademyMenu'
+import AcademyMenu from '../components/AcademyMenu'
 
 class AcademiesShowContainer extends React.Component {
   constructor(props){
@@ -59,10 +59,9 @@ class AcademiesShowContainer extends React.Component {
   }
 
   render(){
-
     let editAcademyButton;
 
-    if(this.academyOwnerCheck(this.state.currentUser) || this.state.adminStatus){
+    if (this.academyOwnerCheck(this.state.currentUser) || this.state.adminStatus) {
         editAcademyButton = <EditAcademyLink id={this.props.params.id} />
       }
 

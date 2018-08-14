@@ -1,13 +1,11 @@
 import React from 'react';
 
-import EntrantTile from './EntrantTile';
+import EntrantTile from '../components/EntrantTile';
 
 class RoundTile extends React.Component {
   constructor(props){
     super(props);
-    this.state = {
-
-    };
+    this.state = {};
     this.determineWinnerTile = this.determineWinnerTile.bind(this);
   }
 

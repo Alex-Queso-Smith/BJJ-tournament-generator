@@ -4,9 +4,7 @@ import { Link } from 'react-router'
 class AcademyMenu extends React.Component {
   constructor(props){
     super(props);
-    this.state = {
-
-    };
+    this.state = {};
   }
 
   componentDidMount(){
@@ -17,9 +15,9 @@ class AcademyMenu extends React.Component {
     let openTournaments;
     let students;
 
-    if(this.props.students.length != 0){
+    if (this.props.students.length != 0) {
       students = this.props.students.map((student) => {
-        if(student.nickname){
+        if (student.nickname) {
           return(
             <li key={student.id}>{`${student.first_name} '${student.nickname}' ${student.last_name}`}</li>
           )
@@ -31,7 +29,7 @@ class AcademyMenu extends React.Component {
       })
     }
 
-    if(this.props.openTournaments.length != 0){
+    if (this.props.openTournaments.length != 0) {
       openTournaments = this.props.openTournaments.map((tournament) => {
         return(
           <Link className="menu-link" to={`/tournaments/${tournament.id}`} key={tournament.id}>
