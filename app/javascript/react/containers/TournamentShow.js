@@ -22,10 +22,17 @@ class TournamentShow extends React.Component {
       bracket2Id: null,
       bracket3Id: null,
       bracket1Winners: [],
+      bracket2Winners: [],
+      bracket3Winner: [],
+      bracket1Finished: false,
+      bracket2Finished: false,
+      bracket3Finished: false,
       tournamentReady: false,
       tournamentBegun: false,
       instructorStatus: false,
-      initialRounds: []
+      initialRounds: [],
+      bracket2Rounds: [],
+      bracket3Round: []
     };
     this.createEntrant = this.createEntrant.bind(this)
     this.handleSubmitEntrantClick = this.handleSubmitEntrantClick.bind(this)
@@ -33,7 +40,15 @@ class TournamentShow extends React.Component {
     this.deleteEntrant = this.deleteEntrant.bind(this)
     this.startTournament = this.startTournament.bind(this)
     this.handleTournamentStart = this.handleTournamentStart.bind(this)
-    this.updateRoundWinner = this.updateRoundWinner.bind(this)
+    this.updateRoundWinnerBracket1 = this.updateRoundWinnerBracket1.bind(this)
+    this.updateRoundWinnerBracket2 = this.updateRoundWinnerBracket2.bind(this)
+    this.updateRoundWinnerBracket3 = this.updateRoundWinnerBracket3.bind(this)
+    this.handleBracket1AdvanceClick = this.handleBracket1AdvanceClick.bind(this)
+    this.handleBracket1Advance = this.handleBracket1Advance.bind(this)
+    this.handleBracket2AdvanceClick = this.handleBracket2AdvanceClick.bind(this)
+    this.handleBracket2Advance = this.handleBracket2Advance.bind(this)
+    this.handleBracket3AdvanceClick = this.handleBracket3AdvanceClick.bind(this)
+    this.handleBracket3Advance = this.handleBracket3Advance.bind(this)
   }
 
   componentDidMount(){
@@ -66,10 +81,26 @@ class TournamentShow extends React.Component {
         rosterId: body.roster_id,
         instructorStatus: body.instructor_status,
         initialRounds: body.initial_rounds,
-        bracket1Winners: body.bracket1_winners
+        bracket1Winners: body.bracket1_winners,
+        bracket2Rounds: body.bracket2_rounds,
+        bracket2Winners: body.bracket2_winners,
+        bracket3Round: body.bracket3_round,
+        bracket3Winner: body.bracket3_winner,
+        bracket1Finished: body.bracket1_finished,
+        bracket2Finished: body.bracket2_finished,
+        bracket3Finished: body.bracket3_finished
       })
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
+  }
+
+  handleSubmitEntrantClick(event){
+    event.preventDefault();
+    let payload = {
+      currentUserId: this.state.currentUserId
+    }
+
+    this.createEntrant(payload)
   }
 
   createEntrant(payload){
@@ -125,15 +156,6 @@ class TournamentShow extends React.Component {
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
-  handleSubmitEntrantClick(event){
-    event.preventDefault();
-    let payload = {
-      currentUserId: this.state.currentUserId
-    }
-
-    this.createEntrant(payload)
-  }
-
   checkEntrantStatus(entrants){
     let status = true
     entrants.forEach((entrant) => {
@@ -142,6 +164,15 @@ class TournamentShow extends React.Component {
       }
     })
     return status
+  }
+
+  handleTournamentStart(event){
+    event.preventDefault;
+    let payload = {
+      tournament_begun: true,
+      entrants: this.state.entrants
+    }
+    this.startTournament(payload);
   }
 
   startTournament(payload){
@@ -165,28 +196,28 @@ class TournamentShow extends React.Component {
       this.setState({
         tournamentBegun: true,
         initialRounds: body.rounds,
-        bracket1_Id: body.bracket1_id,
+        bracket1Id: body.bracket1_id,
         currentBracketId: body.current_bracket_id
       })
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
-  handleTournamentStart(event){
+  handleBracket1AdvanceClick(event){
     event.preventDefault;
+
     let payload = {
-      tournament_begun: true,
-      entrants: this.state.entrants
+      entrants: this.state.bracket1Winners
     }
-    this.startTournament(payload);
+    this.handleBracket1Advance(payload);
   }
 
-  updateRoundWinner(winner, id){
-    fetch(`/api/v1/rounds/${id}.json`, {
+  handleBracket1Advance(payload){
+    fetch(`/api/v1/tournaments/${this.props.params.id}/advance_brackets.json`, {
+      method: 'POST',
       credentials: 'same-origin',
       headers: { 'Content-Type': 'application/json' },
-      method: 'PATCH',
-      body: JSON.stringify(winner)
+      body: JSON.stringify(payload)
     })
     .then(response => {
       if(response.ok){
@@ -199,13 +230,178 @@ class TournamentShow extends React.Component {
     })
     .then(response => response.json())
     .then(body => {
-      
+      this.setState({
+        bracket2Id: body.bracket2_id,
+        currentBracketId: body.current_bracket_id,
+        bracket2Rounds: body.rounds,
+        bracket1Finished: true
+      })
+    })
+    .catch(error => console.error(`Error in fetch: ${error.message}`));
+  }
+
+  handleBracket2AdvanceClick(event){
+    event.preventDefault;
+
+    let payload = {
+      entrants: this.state.bracket2Winners
+    }
+    this.handleBracket2Advance(payload);
+  }
+
+  handleBracket2Advance(payload){
+    fetch(`/api/v1/tournaments/${this.props.params.id}/final_rounds.json`, {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(response => {
+      if(response.ok){
+        return response
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage)
+        throw(error)
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
+      this.setState({
+        bracket3Id: body.bracket3_id,
+        currentBracketId: body.current_bracket_id,
+        bracket3Round: body.round,
+        bracket2Finished: true
+      })
+    })
+    .catch(error => console.error(`Error in fetch: ${error.message}`));
+  }
+
+  handleBracket3AdvanceClick(event){
+    event.preventDefault;
+
+    let payload = {
+      winner: this.state.winner
+    }
+    this.handleBracket3Advance(payload);
+  }
+
+  handleBracket3Advance(payload){
+    fetch(`/api/v1/tournaments/${this.props.params.id}/brackets/${this.state.currentBracketId}.json`, {
+      method: 'PATCH',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(response => {
+      if(response.ok){
+        return response
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage)
+        throw(error)
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
+      this.setState({
+        winner: body.winner
+      })
+    })
+    .catch(error => console.error(`Error in fetch: ${error.message}`));
+  }
+
+  updateRoundWinnerBracket1(winner, id){
+    fetch(`/api/v1/rounds/${id}.json`, {
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      method: 'PATCH',
+      body: JSON.stringify({winner: winner})
+    })
+    .then(response => {
+      if(response.ok){
+        return response
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage)
+        throw(error)
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
       let newWinners = this.state.bracket1Winners.filter( entrant => {
         return entrant != body.uncheckedEntrant
       })
+      if (!newWinners.includes(body.winner)) {
+        newWinners.push(body.winner)
+      }
       this.setState({
         bracket1Winners: newWinners,
         initialRounds: body.rounds
+      })
+    })
+    .catch(error => console.error(`Error in fetch: ${error.message}`));
+  }
+
+  updateRoundWinnerBracket2(winner, id){
+    fetch(`/api/v1/rounds/${id}.json`, {
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      method: 'PATCH',
+      body: JSON.stringify({winner: winner})
+    })
+    .then(response => {
+      if(response.ok){
+        return response
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage)
+        throw(error)
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
+      let newWinners = this.state.bracket2Winners.filter( entrant => {
+        return entrant != body.uncheckedEntrant
+      })
+      if (!newWinners.includes(body.winner)) {
+        newWinners.push(body.winner)
+      }
+      this.setState({
+        bracket2Winners: newWinners,
+        bracket2Rounds: body.rounds
+      })
+    })
+    .catch(error => console.error(`Error in fetch: ${error.message}`));
+  }
+
+  updateRoundWinnerBracket3(winner, id){
+    fetch(`/api/v1/rounds/${id}.json`, {
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      method: 'PATCH',
+      body: JSON.stringify({winner: winner})
+    })
+    .then(response => {
+      if(response.ok){
+        return response
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage)
+        throw(error)
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
+      let newWinner = this.state.bracket3Winner.filter( entrant => {
+        return entrant != body.uncheckedEntrant
+      })
+      if (!newWinner.includes(body.winner)) {
+        newWinner.push(body.winner)
+      }
+      this.setState({
+        bracket3Winner: newWinner,
+        bracket3Round: body.rounds
       })
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
@@ -257,8 +453,21 @@ class TournamentShow extends React.Component {
           tournamentId={this.props.params.id}
           initialRounds={this.state.initialRounds}
           currentBracketId={this.state.currentBracketId}
-          updateRoundWinner={this.updateRoundWinner}
-          roundsRemaining={this.state.bracket1Winners}
+          updateRoundWinnerBracket1={this.updateRoundWinnerBracket1}
+          updateRoundWinnerBracket2={this.updateRoundWinnerBracket2}
+          updateRoundWinnerBracket3={this.updateRoundWinnerBracket3}
+          bracket1Winners={this.state.bracket1Winners}
+          bracket2Winners={this.state.bracket2Winners}
+          bracket3Winner={this.state.bracket3Winner}
+          handleBracket1Advance={this.handleBracket1AdvanceClick}
+          handleBracket2Advance={this.handleBracket2AdvanceClick}
+          handleBracket3Advance={this.handleBracket3AdvanceClick}
+          secondBracketRounds={this.state.bracket2Rounds}
+          finalBracketRound={this.state.bracket3Round}
+          bracket1Status={this.state.bracket1Finished}
+          bracket2Status={this.state.bracket2Finished}
+          bracket3Status={this.state.bracket3Finished}
+          winner={this.state.winner}
         />
     }
 

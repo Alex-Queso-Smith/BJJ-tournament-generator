@@ -28,16 +28,47 @@ class Api::V1::TournamentsController < ApiController
 
     initial_rounds = false
     bracket1_id = tournament.bracket1_id
+    bracket1_winners = []
+    bracket1_finished = false
 
     if bracket1_id
       initial_rounds = Bracket.find(bracket1_id).rounds.sort
+      bracket1_finished = Bracket.find(bracket1_id).finished
     end
 
-    bracket1_winners = []
+   if initial_rounds
+     bracket1_winners = Bracket.new.determine_bracket_winners(initial_rounds)
+   end
 
-    if initial_rounds
-      bracket1_winners = determine_bracket1_winners(initial_rounds)
+    bracket2_rounds = false
+    bracket2_id = tournament.bracket2_id
+    bracket2_winners = []
+    bracket2_finished = false
+
+    if bracket2_id
+      bracket2_rounds = Bracket.find(bracket2_id).rounds.sort
+      bracket2_finished = Bracket.find(bracket2_id).finished
     end
+
+    if bracket2_rounds
+      bracket2_winners = Bracket.new.determine_bracket_winners(bracket2_rounds)
+    end
+
+
+    bracket3_round = false
+    bracket3_id = tournament.bracket3_id
+    bracket3_winner = []
+    bracket3_finished = false
+
+    if bracket3_id
+      bracket3_round = Bracket.find(bracket3_id).rounds.sort
+      bracket3_finished = Bracket.find(bracket3_id).finished
+    end
+
+    if bracket3_round
+      bracket3_winner = Bracket.new.determine_bracket_winners(bracket3_round)
+    end
+
 
     render json: {
       tournament: tournament,
@@ -46,7 +77,14 @@ class Api::V1::TournamentsController < ApiController
       roster_id: roster_id,
       instructor_status: current_user.instructor?,
       initial_rounds: initial_rounds,
-      bracket1_winners: bracket1_winners
+      bracket1_winners: bracket1_winners,
+      bracket2_rounds: bracket2_rounds,
+      bracket2_winners: bracket2_winners,
+      bracket3_round: bracket3_round,
+      bracket3_winner: bracket3_winner,
+      bracket1_finished: bracket1_finished,
+      bracket2_finished: bracket2_finished,
+      bracket3_finished: bracket3_finished
        }
   end
 
@@ -66,17 +104,6 @@ class Api::V1::TournamentsController < ApiController
         :start_date,
         :academy_id
       )
-  end
-
-  def determine_bracket1_winners(rounds)
-    winners = []
-
-    rounds.each do |round|
-      if round.winner
-        winners.push(round.winner)
-      end
-    end
-    winners
   end
 
 end
