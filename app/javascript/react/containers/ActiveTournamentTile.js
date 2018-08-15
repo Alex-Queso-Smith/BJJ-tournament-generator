@@ -69,17 +69,17 @@ class ActiveTournamentTile extends React.Component {
     if (this.props.winner == null) {
       if (bracket1Ready && bracket2Ready && bracket3Ready) {
         advanceTournamentButton =
-        <button onClick={this.props.handleBracket3Advance} className="button large hover-button-yellow">
+        <button onClick={this.props.handleBracket3Advance} className="button large hover-button-yellow advance">
           Finish Tournament!
         </button>
       } else if (bracket1Ready && bracket2Ready) {
         advanceTournamentButton =
-        <button onClick={this.props.handleBracket2Advance} className="button large hover-button-yellow">
+        <button onClick={this.props.handleBracket2Advance} className="button large hover-button-yellow advance">
           Final Bracket!
         </button>
       } else if (bracket1Ready) {
         advanceTournamentButton =
-          <button onClick={this.props.handleBracket1Advance} className="button large hover-button-yellow">
+          <button onClick={this.props.handleBracket1Advance} className="button large hover-button-yellow advance">
             Next Bracket!
           </button>
       }
@@ -161,14 +161,14 @@ class ActiveTournamentTile extends React.Component {
               </div>
             </div>
           </div>
-           <div className="cell small-4">
+           <div className="cell small-4 second">
              <div className="grid-container">
                <div className="grid-y grid-margin-y">
                  {secondRounds}
                </div>
              </div>
            </div>
-           <div className="cell small-4">
+           <div className="cell small-4 last">
              <div className="grid-container">
                <div className="grid-y grid-margin-y">
                  {finalRound}
@@ -176,7 +176,7 @@ class ActiveTournamentTile extends React.Component {
              </div>
            </div>
         </div>
-        {advanceTournamentButton} <span>{winner}</span>
+        {advanceTournamentButton}
       </div>
     )
   }

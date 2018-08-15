@@ -16,7 +16,8 @@ class Api::V1::TournamentsController < ApiController
 
   def show
     tournament = Tournament.find(params[:id])
-    entrants = tournament.users
+    users = tournament.users
+    entrants = Tournament.new.sort_entrant_names(users)
 
     roster_id = false
 

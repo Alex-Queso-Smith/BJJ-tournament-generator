@@ -1,5 +1,5 @@
 import React from 'react';
-import { browserHistory } from 'react-router'
+import { browserHistory } from 'react-router';
 
 import WaitingTournamentTile from '../components/WaitingTournamentTile';
 import ActiveTournamentTile from './ActiveTournamentTile';
@@ -18,6 +18,7 @@ class TournamentShow extends React.Component {
       currentUserId: null,
       rosterId: false,
       currentBracketId: null,
+      currentUserAcademyId: null,
       bracket1Id: null,
       bracket2Id: null,
       bracket3Id: null,
@@ -34,21 +35,21 @@ class TournamentShow extends React.Component {
       bracket2Rounds: [],
       bracket3Round: []
     };
-    this.createEntrant = this.createEntrant.bind(this)
-    this.handleSubmitEntrantClick = this.handleSubmitEntrantClick.bind(this)
-    this.checkEntrantStatus = this.checkEntrantStatus.bind(this)
-    this.deleteEntrant = this.deleteEntrant.bind(this)
-    this.startTournament = this.startTournament.bind(this)
-    this.handleTournamentStart = this.handleTournamentStart.bind(this)
-    this.updateRoundWinnerBracket1 = this.updateRoundWinnerBracket1.bind(this)
-    this.updateRoundWinnerBracket2 = this.updateRoundWinnerBracket2.bind(this)
-    this.updateRoundWinnerBracket3 = this.updateRoundWinnerBracket3.bind(this)
-    this.handleBracket1AdvanceClick = this.handleBracket1AdvanceClick.bind(this)
-    this.handleBracket1Advance = this.handleBracket1Advance.bind(this)
-    this.handleBracket2AdvanceClick = this.handleBracket2AdvanceClick.bind(this)
-    this.handleBracket2Advance = this.handleBracket2Advance.bind(this)
-    this.handleBracket3AdvanceClick = this.handleBracket3AdvanceClick.bind(this)
-    this.handleBracket3Advance = this.handleBracket3Advance.bind(this)
+    this.createEntrant = this.createEntrant.bind(this);
+    this.handleSubmitEntrantClick = this.handleSubmitEntrantClick.bind(this);
+    this.checkEntrantStatus = this.checkEntrantStatus.bind(this);
+    this.deleteEntrant = this.deleteEntrant.bind(this);
+    this.startTournament = this.startTournament.bind(this);
+    this.handleTournamentStart = this.handleTournamentStart.bind(this);
+    this.updateRoundWinnerBracket1 = this.updateRoundWinnerBracket1.bind(this);
+    this.updateRoundWinnerBracket2 = this.updateRoundWinnerBracket2.bind(this);
+    this.updateRoundWinnerBracket3 = this.updateRoundWinnerBracket3.bind(this);
+    this.handleBracket1AdvanceClick = this.handleBracket1AdvanceClick.bind(this);
+    this.handleBracket1Advance = this.handleBracket1Advance.bind(this);
+    this.handleBracket2AdvanceClick = this.handleBracket2AdvanceClick.bind(this);
+    this.handleBracket2Advance = this.handleBracket2Advance.bind(this);
+    this.handleBracket3AdvanceClick = this.handleBracket3AdvanceClick.bind(this);
+    this.handleBracket3Advance = this.handleBracket3Advance.bind(this);
   }
 
   componentDidMount(){
@@ -75,6 +76,7 @@ class TournamentShow extends React.Component {
         finished: body.tournament.finished,
         tournamentBegun: body.tournament.tournament_begun,
         currentBracketId: body.tournament.current_bracket_id,
+        currentUserAcademyId: body.current_user_academy_id,
         bracket1Id: body.tournament.bracket1_id,
         currentUserId: body.current_user_id,
         entrants: body.entrants,
@@ -89,7 +91,7 @@ class TournamentShow extends React.Component {
         bracket1Finished: body.bracket1_finished,
         bracket2Finished: body.bracket2_finished,
         bracket3Finished: body.bracket3_finished
-      })
+      });
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
@@ -98,10 +100,10 @@ class TournamentShow extends React.Component {
     event.preventDefault();
     let payload = {
       currentUserId: this.state.currentUserId
-    }
+    };
 
     this.createEntrant(payload)
-  }
+  };
 
   createEntrant(payload){
     fetch(`/api/v1/tournaments/${this.props.params.id}/tourney_rosters.json`, {
@@ -111,21 +113,21 @@ class TournamentShow extends React.Component {
     })
     .then(response => {
       if(response.ok){
-        return response
+        return response;
       } else {
         let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage)
-        throw(error)
+            error = new Error(errorMessage);
+        throw(error);
       }
     })
     .then(response => response.json())
     .then(body => {
-      let newEntrants = this.state.entrants
-      newEntrants.push(body.new_entrant)
+      let newEntrants = this.state.entrants;
+      newEntrants.push(body.new_entrant);
       this.setState({
         entrants: newEntrants,
         rosterId: body.roster_id
-      })
+      });
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
@@ -137,41 +139,41 @@ class TournamentShow extends React.Component {
     })
     .then(response => {
       if(response.ok){
-        return response
+        return response;
       } else {
         let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage)
-        throw(error)
+            error = new Error(errorMessage);
+        throw(error);
       }
     })
     .then(response => response.json())
     .then(body => {
       let newEntrants = this.state.entrants.filter( entrant => {
-        return entrant.id != currentUserId
-      })
+        return entrant.id != currentUserId;
+      });
       this.setState({
         entrants: newEntrants
-      })
+      });
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
   checkEntrantStatus(entrants){
-    let status = true
+    let status = true;
     entrants.forEach((entrant) => {
       if (entrant.id == this.state.currentUserId) {
-        status = false
+        status = false;
       }
-    })
-    return status
+    });
+    return status;
   }
 
   handleTournamentStart(event){
-    event.preventDefault;
+    event.preventDefault();
     let payload = {
       tournament_begun: true,
       entrants: this.state.entrants
-    }
+    };
     this.startTournament(payload);
   }
 
@@ -184,11 +186,11 @@ class TournamentShow extends React.Component {
     })
     .then(response => {
       if(response.ok){
-        return response
+        return response;
       } else {
         let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage)
-        throw(error)
+            error = new Error(errorMessage);
+        throw(error);
       }
     })
     .then(response => response.json())
@@ -198,17 +200,17 @@ class TournamentShow extends React.Component {
         initialRounds: body.rounds,
         bracket1Id: body.bracket1_id,
         currentBracketId: body.current_bracket_id
-      })
+      });
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
   handleBracket1AdvanceClick(event){
-    event.preventDefault;
+    event.preventDefault();
 
     let payload = {
       entrants: this.state.bracket1Winners
-    }
+    };
     this.handleBracket1Advance(payload);
   }
 
@@ -221,11 +223,11 @@ class TournamentShow extends React.Component {
     })
     .then(response => {
       if(response.ok){
-        return response
+        return response;
       } else {
         let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage)
-        throw(error)
+            error = new Error(errorMessage);
+        throw(error);
       }
     })
     .then(response => response.json())
@@ -235,17 +237,17 @@ class TournamentShow extends React.Component {
         currentBracketId: body.current_bracket_id,
         bracket2Rounds: body.rounds,
         bracket1Finished: true
-      })
+      });
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
   handleBracket2AdvanceClick(event){
-    event.preventDefault;
+    event.preventDefault();
 
     let payload = {
       entrants: this.state.bracket2Winners
-    }
+    };
     this.handleBracket2Advance(payload);
   }
 
@@ -258,11 +260,11 @@ class TournamentShow extends React.Component {
     })
     .then(response => {
       if(response.ok){
-        return response
+        return response;
       } else {
         let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage)
-        throw(error)
+            error = new Error(errorMessage);
+        throw(error);
       }
     })
     .then(response => response.json())
@@ -272,17 +274,17 @@ class TournamentShow extends React.Component {
         currentBracketId: body.current_bracket_id,
         bracket3Round: body.round,
         bracket2Finished: true
-      })
+      });
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
   handleBracket3AdvanceClick(event){
-    event.preventDefault;
+    event.preventDefault();
 
     let payload = {
       winner: this.state.winner
-    }
+    };
     this.handleBracket3Advance(payload);
   }
 
@@ -295,18 +297,18 @@ class TournamentShow extends React.Component {
     })
     .then(response => {
       if(response.ok){
-        return response
+        return response;
       } else {
         let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage)
-        throw(error)
+            error = new Error(errorMessage);
+        throw(error);
       }
     })
     .then(response => response.json())
     .then(body => {
       this.setState({
         winner: body.winner
-      })
+      });
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
@@ -320,25 +322,25 @@ class TournamentShow extends React.Component {
     })
     .then(response => {
       if(response.ok){
-        return response
+        return response;
       } else {
         let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage)
-        throw(error)
+            error = new Error(errorMessage);
+        throw(error);
       }
     })
     .then(response => response.json())
     .then(body => {
       let newWinners = this.state.bracket1Winners.filter( entrant => {
-        return entrant != body.uncheckedEntrant
-      })
+        return entrant != body.uncheckedEntrant;
+      });
       if (!newWinners.includes(body.winner)) {
-        newWinners.push(body.winner)
+        newWinners.push(body.winner);
       }
       this.setState({
         bracket1Winners: newWinners,
         initialRounds: body.rounds
-      })
+      });
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
@@ -352,25 +354,25 @@ class TournamentShow extends React.Component {
     })
     .then(response => {
       if(response.ok){
-        return response
+        return response;
       } else {
         let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage)
-        throw(error)
+            error = new Error(errorMessage);
+        throw(error);
       }
     })
     .then(response => response.json())
     .then(body => {
       let newWinners = this.state.bracket2Winners.filter( entrant => {
-        return entrant != body.uncheckedEntrant
-      })
+        return entrant != body.uncheckedEntrant;
+      });
       if (!newWinners.includes(body.winner)) {
-        newWinners.push(body.winner)
+        newWinners.push(body.winner);
       }
       this.setState({
         bracket2Winners: newWinners,
         bracket2Rounds: body.rounds
-      })
+      });
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
@@ -384,43 +386,46 @@ class TournamentShow extends React.Component {
     })
     .then(response => {
       if(response.ok){
-        return response
+        return response;
       } else {
         let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage)
-        throw(error)
+            error = new Error(errorMessage);
+        throw(error);
       }
     })
     .then(response => response.json())
     .then(body => {
       let newWinner = this.state.bracket3Winner.filter( entrant => {
-        return entrant != body.uncheckedEntrant
-      })
+        return entrant != body.uncheckedEntrant;
+      });
       if (!newWinner.includes(body.winner)) {
-        newWinner.push(body.winner)
+        newWinner.push(body.winner);
       }
       this.setState({
         bracket3Winner: newWinner,
         bracket3Round: body.rounds
-      })
+      });
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
   render(){
     let signUpButton, tournamentTile, startTournamentButton;
-
-    let handleDeleteEntrant = () => {
-      this.deleteEntrant(this.state.currentUserId)
+    let winner = "Undecided"
+    if (this.state.winner) {
+      winner = this.state.winner
     }
+    let handleDeleteEntrant = () => {
+      this.deleteEntrant(this.state.currentUserId);
+    };
 
-    if(
+    if (
       this.state.entrants.length == 8 &&
       this.state.instructorStatus &&
       !this.state.tournamentBegun
-      ){
+      ) {
       startTournamentButton =
-      <button className="button medium hover-button-yellow" onClick={this.handleTournamentStart}>
+      <button id="start-button" className="button medium hover-button-yellow" onClick={this.handleTournamentStart}>
         Start the Tournament!
       </button>
     }
@@ -473,12 +478,17 @@ class TournamentShow extends React.Component {
 
 
     return(
-      <div>
-        {this.state.belt}<br/>
-        {this.state.startDate}<br/>
-        {this.state.weight}<br/>
-        {this.state.gender}<br/>
-        {this.state.winner}<br/>
+      <div >
+        <div className="tournament-title">
+          <div className="tournament-info">
+            <p>{`${this.state.belt} Belt Tournament`}</p>
+            <p>{`${this.state.weight}`}</p>
+            <p>{`${this.state.gender}`}</p>
+            <p>{`Start Date: ${this.state.startDate}`}</p>
+            <p>Tournament Winner</p>
+            <p>{winner}</p>
+          </div>
+        </div>
         {tournamentTile}
         {startTournamentButton}
       </div>

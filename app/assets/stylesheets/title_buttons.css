@@ -5,6 +5,7 @@
   text-transform: uppercase;
   font-weight: 500;
   letter-spacing: 1px;
+  font-size: 1.5em;
 }
 .title-button * {
   -webkit-box-sizing: border-box;
@@ -47,4 +48,11 @@
   opacity: 1;
   top: 0;
   bottom: 0;
+}
+
+#home-button {
+}
+
+.right {
+  margin-right: 45em;
 }

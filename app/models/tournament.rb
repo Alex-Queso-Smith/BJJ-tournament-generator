@@ -8,4 +8,13 @@ class Tournament < ApplicationRecord
   has_many :users, through: :tourney_rosters
 
   has_many :brackets
+
+  def sort_entrant_names(entrants)
+    name_entrants = []
+
+    entrants.each do |entrant|
+      name_entrants << entrant.name_with_nickname
+    end
+    name_entrants
+  end
 end

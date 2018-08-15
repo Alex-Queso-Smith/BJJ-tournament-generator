@@ -17,11 +17,11 @@ class AcademyIndexTile extends React.Component {
     }
 
     return(
-      <div className="cell">
+      <div className="">
         <figure className="index-image">
           {image}
           <figcaption>
-            <h3>{this.props.name}</h3>
+            <p>{this.props.name}</p>
             <p>{`${this.props.address}, ${this.props.city} ${this.props.state}`}</p>
           </figcaption>
             <Link to={`/academies/${this.props.id}`} />

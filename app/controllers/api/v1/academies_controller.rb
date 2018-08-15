@@ -52,6 +52,7 @@ class Api::V1::AcademiesController < ApiController
     new_academy.user = current_user
 
     if new_academy.save
+      current_user.update(academy_id: new_academy.id)
       render json: { academy: new_academy }
     else
       render json: { errors: new_academy.errors }, status: 422

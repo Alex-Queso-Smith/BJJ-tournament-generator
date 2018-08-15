@@ -2,9 +2,9 @@ import React from 'react';
 
 const EntrantTile = props => {
   return(
-    <div onClick={props.onClick} className={props.className}>
-      {props.entrant}
-    </div>
+    <button onClick={props.onClick} className={props.className}>
+      <span>{props.entrant}</span><i className="ion-checkmark"></i>
+    </button>
   )
 }
 

@@ -5,7 +5,7 @@ class Api::V1::BracketsController < ApiController
 
     Bracket.new.assign_initial_bracket(tournament, bracket)
 
-    created_initial_rounds = Round.new.create_initial_rounds(params[:entrants], bracket)
+    created_initial_rounds = Round.new.create_advance_rounds(params[:entrants], bracket)
 
     if created_initial_rounds
       render json: {

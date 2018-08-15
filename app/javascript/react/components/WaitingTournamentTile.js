@@ -15,7 +15,7 @@ class WaitingTournamentTile extends React.Component {
     if (this.props.entrants.length != 0) {
       entrants = this.props.entrants.map((entrant) => {
         return(
-          <h4 key={entrant.id}>{entrant.first_name}</h4>
+          <h4 key={entrant}>{entrant}</h4>
         )
       })
     }
@@ -27,7 +27,7 @@ class WaitingTournamentTile extends React.Component {
     }
 
     return(
-      <div>
+      <div className="waiting-tile">
         <h2>Entrants</h2>
         {entrants}
         {tournamentSpots}

@@ -60,6 +60,7 @@ gem 'factory_bot_rails', group: [:development, :test, :production]
 gem 'database_cleaner', group: [:development, :test]
 gem 'valid_attribute', group: [:development, :test]
 gem 'shoulda-matchers', group: [:development, :test], require: false
+gem "aws-sdk-s3", require: false
 gem 'carrierwave'
 gem 'devise'
 gem 'foundation-rails'
