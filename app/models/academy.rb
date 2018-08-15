@@ -42,6 +42,10 @@ class Academy < ApplicationRecord
   end
 
   def open_tournaments
-    Tournament.where(academy_id: self.id)
+    Tournament.where(academy_id: self.id, finished: false)
+  end
+
+  def closed_tournaments
+    Tournament.where(academy_id: self.id, finished: true)
   end
 end

@@ -1,7 +1,36 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,500');
+
 .menu-link {
   color: #000000;
 }
 
 .menu.vertical {
   color: #000000;
+}
+
+.top-bar.academy-menu {
+  font-size: 2em;
+  margin-left: 5em;
+  font-family: 'Raleway', Arial, sans-serif;
+}
+
+#dropdown-menu > li.is-dropdown-submenu-parent > a::after {
+  border-color: #FDDD32 transparent transparent;
+}
+
+#dropdown-menu > li.is-dropdown-submenu-parent > a:hover {
+  color: #159A3F;
+}
+
+#dropdown-menu .is-active > a {
+  color: #159A3F;
+}
+
+#dropdown-menu .is-active > li {
+  background-color: #FDDD32;
+  opacity: 0.6;
+}
+
+#dropdown-menu > li.is-dropdown-submenu-parent > a > li {
+  color: #159A3F;
 }

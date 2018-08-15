@@ -18,11 +18,11 @@ class Api::V1::AcademiesController < ApiController
   end
 
   def show
-    current_user_id = current_user.id if user_signed_in?
-
+    current_user_id = false
     admin_status = false
     instructor_status = false
 
+    current_user_id = current_user.id if user_signed_in?
     admin_status = current_user.admin? if user_signed_in?
     instructor_status = current_user.instructor? if user_signed_in?
 
@@ -39,7 +39,8 @@ class Api::V1::AcademiesController < ApiController
       purple_belts: academy.purple_belts,
       brown_belts: academy.brown_belts,
       black_belts: academy.black_belts,
-      open_tournaments: academy.open_tournaments
+      open_tournaments: academy.open_tournaments,
+      closed_tournaments: academy.closed_tournaments
     }
   end
 
