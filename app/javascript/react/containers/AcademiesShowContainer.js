@@ -17,6 +17,7 @@ class AcademiesShowContainer extends React.Component {
       brownBelts: [],
       blackBelts: [],
       openTournaments: [],
+      closedTournaments: [],
       currentUser: null,
       adminStatus: null
     };
@@ -48,7 +49,8 @@ class AcademiesShowContainer extends React.Component {
         purpleBelts: body.purple_belts,
         brownBelts: body.brownBelts,
         blackBelts: body.black_belts,
-        openTournaments: body.open_tournaments
+        openTournaments: body.open_tournaments,
+        closedTournaments: body.closed_tournaments
       })
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
@@ -72,6 +74,7 @@ class AcademiesShowContainer extends React.Component {
         students={this.state.students}
         academyId={this.props.params.id}
         openTournaments={this.state.openTournaments}
+        closedTournaments={this.state.closedTournaments}
       />
       <AcademyShowTile
         id={this.state.academy.id}
