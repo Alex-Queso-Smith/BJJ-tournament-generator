@@ -16,6 +16,7 @@ class FirstTimeIndexContainer extends React.Component {
             First time competition can be a stressful and intimidating idea.
             In-house tournaments can be a great way to introduce the environment of competition in a friendly atmosphere amongst fellow students.
           </p>
+          <br />
             <YouTubeTileContainer
               youtubeId={'hmk0SnJCsq8'}
             />

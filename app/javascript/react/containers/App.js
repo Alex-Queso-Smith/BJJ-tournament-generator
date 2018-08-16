@@ -8,6 +8,7 @@ import EditAcademyForm from './EditAcademyForm'
 import TournamentFormContainer from './TournamentFormContainer'
 import TournamentShow from './TournamentShow'
 import FirstTimeIndexContainer from './FirstTimeIndexContainer'
+import AddVideo from './AddVideo'
 
 class App extends React.Component {
   constructor(props){
@@ -37,6 +38,7 @@ class App extends React.Component {
           <Route path='/academies/:id/edit' component={EditAcademyForm} />
           <Route path='/academies/:id/tournaments/new' component={TournamentFormContainer} />
           <Route path='/tournaments/:id' component={TournamentShow} />
+          <Route path='/tournaments/:id/videos/new' component={AddVideo} />
           <Route path='/first_time_videos' component={FirstTimeIndexContainer} />
         </Route>
       </Router>

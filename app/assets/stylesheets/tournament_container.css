@@ -183,3 +183,9 @@ button.entrant-tile.red {
 button.entrant-tile.yellow {
   background-color: #a85913;
 }
+#winner {
+  color: #FDDD32;
+}
+.add-video {
+  margin-left: 9em;
+}

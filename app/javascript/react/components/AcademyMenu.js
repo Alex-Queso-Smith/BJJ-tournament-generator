@@ -12,7 +12,7 @@ class AcademyMenu extends React.Component {
   }
 
   render(){
-    let openTournaments, closedTournaments;
+    let openTournaments, closedTournaments, createTournament, addVideo;
     let students;
 
     if (this.props.students.length != 0) {
@@ -33,7 +33,7 @@ class AcademyMenu extends React.Component {
       openTournaments = this.props.openTournaments.map((tournament) => {
         return(
           <Link className="menu-link" to={`/tournaments/${tournament.id}`} key={tournament.id}>
-            {`${tournament.gender} ${tournament.belt} - ${tournament.start_date}`}
+            {`${tournament.gender} ${tournament.belt} - ${tournament.weight} - ${tournament.start_date}`}
           </Link>
         )
       })
@@ -43,22 +43,27 @@ class AcademyMenu extends React.Component {
       closedTournaments = this.props.closedTournaments.map((tournament) => {
         return(
           <Link className="menu-link" to={`/tournaments/${tournament.id}`} key={tournament.id}>
-            {`${tournament.gender} ${tournament.belt} - ${tournament.start_date}`}
+            {`${tournament.gender} ${tournament.belt} - ${tournament.weight} - ${tournament.start_date}`}
           </Link>
         )
       })
     }
 
+    if (this.props.academyOwnerCheck(this.props.currentUserId)) {
+      createTournament =
+      <div className="create-tournament-button">
+        <Link className="menu-text" to={`/academies/${this.props.academyId}/tournaments/new`}>
+          Create Tournament
+        </Link>
+      </div>
+    }
+    
     return(
       <div>
         <div className="top-bar academy-menu" id="academy-menu">
           <div className="top-bar-left">
             <ul id="dropdown-menu" className="dropdown menu" data-dropdown-menu>
-              <div className="create-tournament-button">
-                <Link className="menu-text" to={`/academies/${this.props.academyId}/tournaments/new`}>
-                  Create Tournament
-                </Link>
-              </div>
+              {createTournament}
               <li>
                 <a>Open Tournaments</a>
                 <ul className="menu vertical">

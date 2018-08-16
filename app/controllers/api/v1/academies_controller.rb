@@ -41,7 +41,7 @@ class Api::V1::AcademiesController < ApiController
       brown_belts: academy.brown_belts,
       black_belts: academy.black_belts,
       open_tournaments: academy.open_tournaments,
-      closed_tournaments: academy.closed_tournaments
+      closed_tournaments: serialized_closed_tournaments
     }
   end
 
@@ -87,5 +87,9 @@ class Api::V1::AcademiesController < ApiController
         :website,
         :academy_photo
       )
+  end
+
+  def serialized_closed_tournaments
+    ActiveModel::Serializer::ArraySerializer.new(Academy.find(params[:id]).closed_tournaments, each_serializer: TournamentSerializer)
   end
 end

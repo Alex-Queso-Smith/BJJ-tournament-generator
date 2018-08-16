@@ -8,7 +8,7 @@
 }
 .top-bar.academy-menu {
   font-size: 2em;
-  margin-left: 5em;
+  margin-left: 2em;
   font-family: 'Raleway', Arial, sans-serif;
 }
 #dropdown-menu > li.is-dropdown-submenu-parent > a::after {
