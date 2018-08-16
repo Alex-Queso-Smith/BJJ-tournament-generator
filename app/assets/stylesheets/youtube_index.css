@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,500,800');
+
+#youtube-index {
+  margin-top: 5em;
+}
+#youtube-index-blurb {
+  width: 55%;
+  text-align: center;
+  float: left;
+  font-family: 'Raleway', Arial, sans-serif;
+  font-size: 1.5em;
+}
