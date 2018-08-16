@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,700;');
 
 .title-index {
-  margin-left: 10em;
+  text-align: center;
 }
 #index-page {
-  margin-left: -21rem;
-  width: 90%;
+  margin: auto;
+  width: 85%;
 }
 .new-academy {
   margin-left: 28.25rem;
