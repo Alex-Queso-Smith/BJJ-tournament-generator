@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   root 'academies#index'
   devise_for :users
 
+  resources :first_time_videos, only: [:index]
+
   resources :academies, only: [:index, :show, :new, :create, :update] do
     resources :tournaments, only: [:new, :create]
   end

@@ -3,6 +3,7 @@
 <head>
   <title>BJJTournamentGenerator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://www.youtube.com/player_api"></script>
 
   <%= stylesheet_link_tag 'application', media: 'all' %>
 
@@ -25,7 +26,8 @@
       <div class="right">
         <%- if current_user -%>
             <ul class="menu horizontal title-button">
-              <li><%= link_to 'Home', academies_path, id: "home-button" %></li>
+              <li><%= link_to 'Home', academies_path %></li>
+              <li><%= link_to 'First Time?', first_time_videos_path %></li>
               <li ><%= link_to 'Edit', edit_user_registration_path %></li>
               <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
             </ul>
