@@ -1,17 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,700;');
+
 .title-index {
   margin-left: 10em;
 }
-
 #index-page {
   margin-left: -21rem;
   width: 90%;
 }
-
 .new-academy {
   margin-left: 28.25rem;
 }
-
-@import url('https://fonts.googleapis.com/css?family=Roboto:100,700;');
 .index-image {
   background-color: #000;
   color: #fff;
@@ -26,14 +24,12 @@
   text-align: center;
   width: 100%;
 }
-
 .index-image * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   -webkit-transition: all 0.45s ease;
   transition: all 0.45s ease;
 }
-
 .index-image:before,
 .index-image:after {
   background-color: rgba(0, 0, 0, 0.5);
@@ -50,23 +46,19 @@
   z-index: 1;
   opacity: 0;
 }
-
 .index-image:before {
   -webkit-transform: scaleY(2);
   transform: scaleY(2);
 }
-
 .index-image:after {
   -webkit-transform: scaleY(2);
   transform: scaleY(2);
 }
-
 .index-image img {
   vertical-align: top;
   max-width: 100%;
   backface-visibility: hidden;
 }
-
 .index-image figcaption {
   position: absolute;
   top: 0;
@@ -84,7 +76,6 @@
   -webkit-transition-delay: 0s;
   transition-delay: 0s;
 }
-
 .index-image h3 {
   font-size: 1em;
   font-weight: 400;
@@ -92,12 +83,10 @@
   margin: 0;
   text-transform: uppercase;
 }
-
 .index-image h3 span {
   display: block;
   font-weight: 700;
 }
-
 .index-image a {
   position: absolute;
   top: 0;
@@ -106,12 +95,10 @@
   right: 0;
   z-index: 3;
 }
-
 .index-image:hover > img,
 .index-image.hover > img {
   opacity: 0.7;
 }
-
 .index-image:hover:before,
 .index-image.hover:before,
 .index-image:hover:after,
@@ -120,7 +107,6 @@
   transform: scale(1);
   opacity: 1;
 }
-
 .index-image:hover figcaption,
 .index-image.hover figcaption {
   opacity: 1;
