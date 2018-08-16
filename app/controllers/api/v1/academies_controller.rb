@@ -1,4 +1,5 @@
 class Api::V1::AcademiesController < ApiController
+
   def index
     admin_status = false
     instructor_status = false

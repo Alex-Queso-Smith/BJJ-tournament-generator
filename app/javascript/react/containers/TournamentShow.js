@@ -19,6 +19,9 @@ class TournamentShow extends React.Component {
       rosterId: false,
       currentBracketId: null,
       currentUserAcademyId: null,
+      academyId: null,
+      userEntered: false,
+      name: null,
       bracket1Id: null,
       bracket2Id: null,
       bracket3Id: null,
@@ -37,7 +40,6 @@ class TournamentShow extends React.Component {
     };
     this.createEntrant = this.createEntrant.bind(this);
     this.handleSubmitEntrantClick = this.handleSubmitEntrantClick.bind(this);
-    this.checkEntrantStatus = this.checkEntrantStatus.bind(this);
     this.deleteEntrant = this.deleteEntrant.bind(this);
     this.startTournament = this.startTournament.bind(this);
     this.handleTournamentStart = this.handleTournamentStart.bind(this);
@@ -50,10 +52,11 @@ class TournamentShow extends React.Component {
     this.handleBracket2Advance = this.handleBracket2Advance.bind(this);
     this.handleBracket3AdvanceClick = this.handleBracket3AdvanceClick.bind(this);
     this.handleBracket3Advance = this.handleBracket3Advance.bind(this);
+    this.checkEntrantAbility = this.checkEntrantAbility.bind(this);
   }
 
   componentDidMount(){
-    fetch( `/api/v1/tournaments/${this.props.params.id}`, {
+    fetch( `/api/v1/tournaments/${this.props.params.id}.json`, {
       credentials: 'same-origin'
     })
     .then(response => {
@@ -77,8 +80,11 @@ class TournamentShow extends React.Component {
         tournamentBegun: body.tournament.tournament_begun,
         currentBracketId: body.tournament.current_bracket_id,
         currentUserAcademyId: body.current_user_academy_id,
+        academyId: body.tournament.academy_id,
+        userEntered: body.user_entered,
         bracket1Id: body.tournament.bracket1_id,
         currentUserId: body.current_user_id,
+        name: body.name,
         entrants: body.entrants,
         rosterId: body.roster_id,
         instructorStatus: body.instructor_status,
@@ -126,14 +132,15 @@ class TournamentShow extends React.Component {
       newEntrants.push(body.new_entrant);
       this.setState({
         entrants: newEntrants,
-        rosterId: body.roster_id
+        rosterId: body.roster_id,
+        userEntered: true
       });
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
   deleteEntrant(currentUserId){
-    fetch(`/api/v1/tourney_rosters/${this.state.rosterId}.json`, {
+    fetch(`/api/v1/tournaments/${this.props.params.id}/tourney_rosters/${this.state.rosterId}.json`, {
       credentials: 'same-origin',
       method: 'DELETE'
     })
@@ -149,23 +156,14 @@ class TournamentShow extends React.Component {
     .then(response => response.json())
     .then(body => {
       let newEntrants = this.state.entrants.filter( entrant => {
-        return entrant.id != currentUserId;
+        return entrant != this.state.name;
       });
       this.setState({
-        entrants: newEntrants
+        entrants: newEntrants,
+        userEntered: false
       });
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
-  }
-
-  checkEntrantStatus(entrants){
-    let status = true;
-    entrants.forEach((entrant) => {
-      if (entrant.id == this.state.currentUserId) {
-        status = false;
-      }
-    });
-    return status;
   }
 
   handleTournamentStart(event){
@@ -409,12 +407,25 @@ class TournamentShow extends React.Component {
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
+  checkEntrantAbility(){
+    if (
+      !this.state.entrants.includes(this.state.name) &&
+      this.state.entrants.length == 8) {
+        return false
+      } else {
+        return true
+      }
+  }
+
   render(){
-    let signUpButton, tournamentTile, startTournamentButton;
+
+    let tournamentTile, startTournamentButton, signUpButton;
     let winner = "Undecided"
+
     if (this.state.winner) {
       winner = this.state.winner
     }
+
     let handleDeleteEntrant = () => {
       this.deleteEntrant(this.state.currentUserId);
     };
@@ -430,27 +441,29 @@ class TournamentShow extends React.Component {
       </button>
     }
 
-    if (this.checkEntrantStatus(this.state.entrants) && !this.state.instructorStatus){
-      signUpButton =
-      <button onClick={this.handleSubmitEntrantClick} className="button medium hover-button-yellow">
-        Enter this Tournament
-      </button>
-    } else if (!this.state.instructorStatus) {
-      signUpButton =
-      <div>
-        <h2>You're Signed Up!</h2>
-        <button onClick={handleDeleteEntrant} className="button medium hover-button">
-          Withdraw From Tournament
+    if (this.checkEntrantAbility() && this.state.academyId == this.state.currentUserAcademyId) {
+      if (!this.state.userEntered && !this.state.instructorStatus) {
+        signUpButton =
+        <button onClick={this.handleSubmitEntrantClick} className="button medium hover-button-yellow">
+          Enter this Tournament
         </button>
-      </div>
+      } else if (!this.state.instructorStatus) {
+        signUpButton =
+        <div>
+          <h2>You're Signed Up!</h2>
+          <button onClick={handleDeleteEntrant} className="button medium hover-button">
+            Withdraw From Tournament
+          </button>
+        </div>
+      }
     }
 
-    if(!this.state.tournamentBegun){
+    if (!this.state.tournamentBegun) {
       tournamentTile =
         <WaitingTournamentTile
           entrants={this.state.entrants}
           signUpButton={signUpButton}
-          tournamentId={this.props.params.id}
+          instructorStatus={this.state.instructorStatus}
         />
     } else {
       tournamentTile =
@@ -475,7 +488,6 @@ class TournamentShow extends React.Component {
           winner={this.state.winner}
         />
     }
-
 
     return(
       <div >

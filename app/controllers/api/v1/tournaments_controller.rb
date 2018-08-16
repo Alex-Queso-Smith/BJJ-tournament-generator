@@ -18,12 +18,17 @@ class Api::V1::TournamentsController < ApiController
     tournament = Tournament.find(params[:id])
     users = tournament.users
     entrants = Tournament.new.sort_entrant_names(users)
+    user = current_user if user_signed_in?
+    name = user.name_with_nickname
 
     roster_id = false
 
     if TourneyRoster.find_by(tournament: tournament, user: current_user)
       roster_id = TourneyRoster.find_by(tournament: tournament, user: current_user).id
     end
+
+    user_entered = false
+    user_entered = true if roster_id
 
     initial_rounds = false
     bracket1_id = tournament.bracket1_id
@@ -64,6 +69,8 @@ class Api::V1::TournamentsController < ApiController
     render json: {
       tournament: tournament,
       current_user_id: current_user.id,
+      user_entered: user_entered,
+      name: name,
       entrants: entrants,
       roster_id: roster_id,
       instructor_status: current_user.instructor?,

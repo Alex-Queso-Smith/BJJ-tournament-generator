@@ -6,12 +6,10 @@ class AcademyShowTile extends React.Component {
     this.state = {};
   }
 
-
   render(){
 
     return(
       <div className="show-tile">
-      Academy Show Tile
       </div>
     )
   }
