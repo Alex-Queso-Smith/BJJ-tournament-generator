@@ -71,8 +71,8 @@ class AcademiesIndexContainer extends React.Component {
     }
     return(
       <div>
-        <h1 className="title-index">Academies</h1>
         <div className="grid-container">
+          <h1 className="title-index">Academies</h1>
           <div id="index-page" className="grid-x grid-margin-x grid-margin-y">
               {academiesArray}
           </div>

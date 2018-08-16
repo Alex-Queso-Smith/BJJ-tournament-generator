@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
 
   resources :tournaments, only: [:show] do
+    resources :videos, only: [:new, :create]
     resources :brackets, only: [:create, :update]
   end
 
@@ -22,6 +23,7 @@ Rails.application.routes.draw do
         resources :tourney_rosters, only: [:create, :update, :destroy]
         resources :advance_brackets, only: [:create]
         resources :final_rounds, only: [:create]
+        resources :videos, only: [:new, :create, :destroy]
       end
       resources :rounds, only: [:update]
     end

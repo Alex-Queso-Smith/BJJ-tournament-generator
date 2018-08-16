@@ -8,6 +8,7 @@ class Tournament < ApplicationRecord
   has_many :users, through: :tourney_rosters
 
   has_many :brackets
+  has_many :youtube_videos
 
   def sort_entrant_names(entrants)
     name_entrants = []

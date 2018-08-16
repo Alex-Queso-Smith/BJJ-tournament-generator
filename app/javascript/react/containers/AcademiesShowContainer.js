@@ -2,7 +2,7 @@ import React from 'react';
 import { Link} from 'react-router';
 
 import EditAcademyLink from '../components/EditAcademyLink'
-import AcademyShowTile from '../components/AcademyShowTile'
+import AcademyShowTile from './AcademyShowTile'
 import AcademyMenu from '../components/AcademyMenu'
 
 class AcademiesShowContainer extends React.Component {
@@ -18,10 +18,11 @@ class AcademiesShowContainer extends React.Component {
       blackBelts: [],
       openTournaments: [],
       closedTournaments: [],
-      currentUser: null,
+      currentUserId: null,
       adminStatus: null
     };
     this.academyOwnerCheck = this.academyOwnerCheck.bind(this)
+    this.academyStudentCheck = this.academyStudentCheck.bind(this)
   }
 
   componentDidMount(){
@@ -42,7 +43,7 @@ class AcademiesShowContainer extends React.Component {
       this.setState({
         academy: body.academy,
         adminStatus: body.admin_status,
-        currentUser: body.user_id,
+        currentUserId: body.user_id,
         students: body.students,
         whiteBelts: body.white_belts,
         blueBelts: body.blue_belts,
@@ -60,6 +61,10 @@ class AcademiesShowContainer extends React.Component {
     return userId == this.state.academy.user_id
   }
 
+  academyStudentCheck(userId, academyId){
+    return userId == academyId
+  }
+
   render(){
     let editAcademyButton;
 
@@ -73,15 +78,19 @@ class AcademiesShowContainer extends React.Component {
         academyName={this.state.academy.name}
         students={this.state.students}
         academyId={this.props.params.id}
+        currentUserId={this.state.currentUserId}
         openTournaments={this.state.openTournaments}
         closedTournaments={this.state.closedTournaments}
+        academyOwnerCheck={this.academyOwnerCheck}
       />
       <AcademyShowTile
         id={this.state.academy.id}
         name={this.state.academy.name}
         adminStatus={this.state.adminStatus}
         academyOwner={this.state.academy.user_id}
-        userId={this.state.currentUser}
+        userId={this.state.currentUserId}
+        studentCheck={this.academyStudentCheck}
+        closedTournaments={this.state.closedTournaments}
       />
       {editAcademyButton}
       </div>

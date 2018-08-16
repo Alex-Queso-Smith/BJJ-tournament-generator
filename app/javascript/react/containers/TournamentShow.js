@@ -498,7 +498,7 @@ class TournamentShow extends React.Component {
             <p>{`${this.state.gender}`}</p>
             <p>{`Start Date: ${this.state.startDate}`}</p>
             <p>Tournament Winner</p>
-            <p>{winner}</p>
+            <p id="winner">{winner}</p>
           </div>
         </div>
         {tournamentTile}
