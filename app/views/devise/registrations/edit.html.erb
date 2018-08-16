@@ -18,18 +18,14 @@
     <div class="grid-x grid-padding-x">
       <div class="field cell">
         <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-        <%= f.password_field :password, autocomplete: "off" %>
-        <% if @minimum_password_length %>
-        <br />
-        <em><%= @minimum_password_length %> characters minimum</em>
-        <% end %>
+        <%= f.password_field :password, autocomplete: "off", placeholder: "Six Characters Minimum" %>
       </div>
     </div>
 
     <div class="grid-x grid-padding-x">
       <div class="field cell">
         <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "off" %>
+        <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm Password" %>
       </div>
     </div>
 
