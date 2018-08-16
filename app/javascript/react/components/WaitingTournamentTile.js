@@ -9,7 +9,6 @@ class WaitingTournamentTile extends React.Component {
   }
 
   render(){
-
     let tournamentSpots, entrants;
 
     if (this.props.entrants.length != 0) {

@@ -1,17 +1,18 @@
 class Api::V1::TourneyRostersController < ApiController
   def create
-
     new_tourney_roster = TourneyRoster.new(user: current_user, tournament: Tournament.find(params[:tournament_id]))
+    user = current_user if user_signed_in?
+    entrant = user.name_with_nickname
 
     if new_tourney_roster.save
-      render json: { new_entrant: current_user, roster_id: new_tourney_roster.id }
+      render json: { new_entrant: entrant, roster_id: new_tourney_roster.id }
     else
       render json: { errors: new_tourney_roster.errors }, status: 422
     end
   end
 
   def destroy
-    roster_to_destroy = TourneyRoster.find(params[:id])
+    roster_to_destroy = TourneyRoster.find_by(user: current_user, tournament_id: params[:tournament_id])
 
     if roster_to_destroy.destroy
       render json: { body: 'Deleted Successfully' }
