@@ -22,6 +22,18 @@ label {
 input:hover {
   box-shadow: 0px 0px 60px #15993F;
 }
+input[type=email]:focus, textarea:focus {
+  box-shadow: 0px 0px 60px #15993F;
+}
+input[type=password]:focus, textarea:focus {
+  box-shadow: 0px 0px 60px #15993F;
+}
+input[type=text]:focus, textarea:focus {
+  box-shadow: 0px 0px 60px #15993F;
+}
+select:focus, textarea:focus {
+  box-shadow: 0px 0px 60px #15993F;
+}
 select:hover {
   box-shadow: 0px 0px 60px #15993F;
 }
@@ -32,13 +44,11 @@ select:hover {
 .under-buttons {
   float: left;
 }
-
 #photo-button {
   border: none;
   float: left;
   width: 85%;
 }
-
 #update-button {
   margin-left: 10rem;
 }

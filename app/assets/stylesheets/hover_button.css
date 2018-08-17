@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,500,800');
 .hover-button {
-  background-color: #000000;
+  background-color: rgba(255, 0, 0, 0.0);
   border: none;
   color: #ffffff;
   cursor: pointer;
@@ -47,7 +47,7 @@
 }
 .hover-button:hover,
 .hover-button.hover {
-  background-color: #000000;
+  background-color: rgba(255, 0, 0, 0.0);
 }
 .hover-button:hover:before,
 .hover-button.hover:before,
@@ -57,7 +57,7 @@
   width: 100%;
 }
 .hover-button-yellow {
-  background-color: #000000;
+  background-color: rgba(255, 0, 0, 0.0);
   border: none;
   color: #ffffff;
   cursor: pointer;
@@ -104,7 +104,7 @@
 }
 .hover-button-yellow:hover,
 .hover-button-yellow.hover {
-  background-color: #000000;
+  background-color: rgba(255, 0, 0, 0.0);
 }
 .hover-button-yellow:hover:before,
 .hover-button-yellow.hover:before,
