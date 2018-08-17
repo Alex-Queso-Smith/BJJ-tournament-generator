@@ -1,6 +1,6 @@
 class Bracket < ApplicationRecord
   belongs_to :tournament
-  has_many :rounds
+  has_many :rounds, dependent: :destroy
 
   def assign_initial_bracket(tournament, bracket)
       tournament.update(

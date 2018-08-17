@@ -27,6 +27,7 @@ class Api::V1::TournamentsController < ApiController
       name = user.name_with_nickname
       instructor_status = user.instructor?
       user_id = user.id
+      admin_status = user.admin?
     end
 
     if TourneyRoster.find_by(tournament: tournament, user: current_user)
@@ -75,6 +76,7 @@ class Api::V1::TournamentsController < ApiController
       entrants: entrants,
       roster_id: roster_id,
       instructor_status: instructor_status,
+      admin_status: admin_status,
       initial_rounds: initial_rounds,
       bracket1_winners: bracket1_winners,
       bracket2_rounds: bracket2_rounds,
@@ -85,6 +87,16 @@ class Api::V1::TournamentsController < ApiController
       bracket2_finished: bracket2_finished,
       bracket3_finished: bracket3_finished
        }
+  end
+
+  def destroy
+    tournament = Tournament.find(params[:id])
+
+    if tournament.destroy
+      render json: { message: "Delete Successful" }
+    else
+      render json: { errors: tournament.errors }, status: 422
+    end
   end
 
   def update;end
