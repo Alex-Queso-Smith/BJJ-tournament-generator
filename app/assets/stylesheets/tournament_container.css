@@ -64,7 +64,6 @@
   background-color: #FDDE32;
   opacity: 0.9;
   border: solid #FDDE32;
-  /* box-shadow: 0px 0px 60px #009b3a; */
 }
 .entrant-tile:hover {
   cursor: pointer;
