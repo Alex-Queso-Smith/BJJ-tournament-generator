@@ -20,22 +20,22 @@ label {
   text-align: center;
 }
 input:hover {
-  box-shadow: 0px 0px 60px #15993F;
+  box-shadow: 0px 0px 60px #47FD35;
 }
 input[type=email]:focus, textarea:focus {
-  box-shadow: 0px 0px 60px #15993F;
+  box-shadow: 0px 0px 60px #47FD35;
 }
 input[type=password]:focus, textarea:focus {
-  box-shadow: 0px 0px 60px #15993F;
+  box-shadow: 0px 0px 60px #47FD35;
 }
 input[type=text]:focus, textarea:focus {
-  box-shadow: 0px 0px 60px #15993F;
+  box-shadow: 0px 0px 60px #47FD35;
 }
 select:focus, textarea:focus {
-  box-shadow: 0px 0px 60px #15993F;
+  box-shadow: 0px 0px 60px #47FD35;
 }
 select:hover {
-  box-shadow: 0px 0px 60px #15993F;
+  box-shadow: 0px 0px 60px #47FD35;
 }
 #academy-form {
   width: 50%;
