@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       resources :academies, only: [:index, :show, :new, :create, :update] do
         resources :tournaments, only: [:new, :create]
       end
-      resources :tournaments, only: [:show, :update] do
+      resources :tournaments, only: [:show, :update, :destroy] do
         resources :brackets, only: [:create, :update]
         resources :tourney_rosters, only: [:create, :update, :destroy]
         resources :advance_brackets, only: [:create]

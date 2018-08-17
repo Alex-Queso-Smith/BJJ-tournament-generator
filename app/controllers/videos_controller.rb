@@ -1,4 +1,4 @@
-class VideosController < ActionController::Base
+class VideosController < ApplicationController
   def new;end
 
   def create;end

@@ -19,6 +19,7 @@ class TournamentShow extends React.Component {
       rosterId: false,
       currentBracketId: null,
       currentUserAcademyId: null,
+      tournamentId: null,
       academyId: null,
       userEntered: false,
       name: null,
@@ -53,6 +54,7 @@ class TournamentShow extends React.Component {
     this.handleBracket3AdvanceClick = this.handleBracket3AdvanceClick.bind(this);
     this.handleBracket3Advance = this.handleBracket3Advance.bind(this);
     this.checkEntrantAbility = this.checkEntrantAbility.bind(this);
+    this.deleteTournament = this.deleteTournament.bind(this);
   }
 
   componentDidMount(){
@@ -71,6 +73,7 @@ class TournamentShow extends React.Component {
     .then(response => response.json())
     .then(body => {
       this.setState({
+        tournamentId: body.tournament.id,
         belt: body.tournament.belt,
         startDate: body.tournament.start_date,
         weight: body.tournament.weight,
@@ -88,6 +91,7 @@ class TournamentShow extends React.Component {
         entrants: body.entrants,
         rosterId: body.roster_id,
         instructorStatus: body.instructor_status,
+        adminStatus: body.admin_status,
         initialRounds: body.initial_rounds,
         bracket1Winners: body.bracket1_winners,
         bracket2Rounds: body.bracket2_rounds,
@@ -407,6 +411,30 @@ class TournamentShow extends React.Component {
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
+  deleteTournament(){
+    let result = confirm("Delete Tournament?")
+    if (result == true) {
+      fetch(`/api/v1/tournaments/${this.state.tournamentId}.json`, {
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json',
+        'X-Requested-With': 'XHMLttpRequest' },
+        method: 'DELETE',
+      })
+      .then(response => {
+        if(response.ok){
+          return response
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+              error = new Error(errorMessage)
+          throw(error)
+        }
+      })
+      .then(response => response.json())
+      .then(body => browserHistory.push(`/academies/${this.state.academyId}`))
+      .catch(error => console.error(`Error in fetch: ${error.message}`));
+    }
+  }
+
   checkEntrantAbility(){
     if (
       !this.state.entrants.includes(this.state.name) &&
@@ -419,7 +447,7 @@ class TournamentShow extends React.Component {
 
   render(){
 
-    let tournamentTile, startTournamentButton, signUpButton;
+    let tournamentTile, startTournamentButton, signUpButton, deleteButton;
     let winner = "Undecided"
 
     if (this.state.winner) {
@@ -457,6 +485,16 @@ class TournamentShow extends React.Component {
           </button>
         </div>
       }
+    }
+
+    if (
+      this.state.academyId == this.state.currentUserAcademyId &&
+      this.state.instructorStatus || this.state.adminStatus
+    ) {
+      deleteButton =
+      <button id="delete-button" onClick={this.deleteTournament} className="button medium hover-button">
+        Delete this Tournament
+      </button>
     }
 
     if (!this.state.tournamentBegun) {
@@ -504,6 +542,7 @@ class TournamentShow extends React.Component {
         </div>
         {tournamentTile}
         {startTournamentButton}
+        {deleteButton}
       </div>
     )
   }
