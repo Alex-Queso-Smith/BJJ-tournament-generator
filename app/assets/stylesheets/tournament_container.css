@@ -22,7 +22,7 @@
   border-radius: 5px;
   padding: 5px 5px;
   color: #ffffff;
-  font-family: 'Corben', cursive;
+  font-family: 'Raleway', Arial, sans-serif;
   opacity: .8;
 }
 .tournament-info, p {
@@ -43,8 +43,11 @@
   margin-bottom: 3em;
   text-align: center;
 }
-.waiting-tile, h4, h1, h2 {
+.waiting-tile, h1, h2 {
   font-family: 'Corben', cursive;
+}
+.waiting-tile, h4 {
+  font-family: 'Raleway', Arial, sans-serif;
 }
 .round-tile {
   text-align: center;
@@ -61,7 +64,6 @@
   background-color: #FDDE32;
   opacity: 0.9;
   border: solid #FDDE32;
-  /* box-shadow: 0px 0px 60px #009b3a; */
 }
 .entrant-tile:hover {
   cursor: pointer;
