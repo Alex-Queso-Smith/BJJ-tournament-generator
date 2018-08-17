@@ -81,6 +81,9 @@ class AcademyFormContainer extends React.Component {
        } else {
          let errorMessage = `${response.status} (${response.statusText})`,
              error = new Error(errorMessage)
+             if(response.status == 401){
+                alert("Whoa buddy!!\nYou must be signed in to add an academy!!!")
+              }
          throw(error)
        }
      })
@@ -123,7 +126,7 @@ class AcademyFormContainer extends React.Component {
 
     return(
       <form className="grid-container" id="academy-form" onSubmit={this.handleSubmit} >
-        <h1>New Academy</h1>
+        <h1 className="user-title">New Academy</h1>
         {errorDiv}
         <AcademyInput
           name="name"

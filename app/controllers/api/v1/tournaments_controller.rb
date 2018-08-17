@@ -1,4 +1,6 @@
 class Api::V1::TournamentsController < ApiController
+  before_action :authenticate_user!
+
   def new
     new_tournament = Tournament.new
   end

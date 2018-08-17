@@ -5,7 +5,7 @@ const AddVideoLink = props => {
   return(
     <Link to={`/tournaments/${props.id}/videos/new`} >
       <button className="button medium hover-button-yellow add-video">
-        Add Video!
+        Add Youtube Video!
       </button>
     </Link>
   )

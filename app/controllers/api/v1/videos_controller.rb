@@ -1,4 +1,6 @@
 class Api::V1::VideosController < ApiController
+  before_action :authenticate_user!
+
   def new
     new_video = YoutubeVideo.new
   end

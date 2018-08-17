@@ -149,7 +149,7 @@ class EditAcademyForm extends React.Component {
     }
     return(
       <form className="grid-container" id="academy-form" onSubmit={this.handleSubmit}>
-        <h1>Edit Your Academy</h1>
+        <h1 className="user-title">Edit Your Academy</h1>
           {errorDiv}
           <AcademyInput
             name="name"
