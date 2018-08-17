@@ -1,5 +1,5 @@
 class Api::V1::TournamentsController < ApiController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:show]
 
   def new
     new_tournament = Tournament.new
@@ -21,7 +21,8 @@ class Api::V1::TournamentsController < ApiController
     users = tournament.users
     entrants = Tournament.new.sort_entrant_names(users)
     user = current_user if user_signed_in?
-    name = user.name_with_nickname
+    current_user_academy_id = user.academy_id if user_signed_in?
+    name = user.name_with_nickname if user_signed_in?
 
     roster_id = false
 
@@ -71,6 +72,7 @@ class Api::V1::TournamentsController < ApiController
     render json: {
       tournament: tournament,
       current_user_id: current_user.id,
+      current_user_academy_id: current_user_academy_id,
       user_entered: user_entered,
       name: name,
       entrants: entrants,
