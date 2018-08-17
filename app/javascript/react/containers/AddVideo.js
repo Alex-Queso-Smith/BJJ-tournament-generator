@@ -78,7 +78,7 @@ class AddVideo extends React.Component {
     return(
       <div>
         <form className="grid-container" id="video-form" onSubmit={this.handleSubmit}>
-          <h1>Add YouTube Video Id dude </h1>
+          <h1>Add YouTube Video ID</h1>
           <h5>The id is the series of characters after the = sign in the url of the video i.e. (www.youtube.com/watch?v=GqsYDcQl0Xg)</h5>
 
           <label htmlFor="videoId">YouTube Video Id</label>
