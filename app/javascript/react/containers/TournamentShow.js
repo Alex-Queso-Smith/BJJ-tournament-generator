@@ -433,7 +433,8 @@ class TournamentShow extends React.Component {
     if (
       this.state.entrants.length == 8 &&
       this.state.instructorStatus &&
-      !this.state.tournamentBegun
+      !this.state.tournamentBegun &&
+      this.state.academyId == this.state.currentUserAcademyId
       ) {
       startTournamentButton =
       <button id="start-button" className="button medium hover-button-yellow" onClick={this.handleTournamentStart}>
