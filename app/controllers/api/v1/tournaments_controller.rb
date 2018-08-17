@@ -20,11 +20,14 @@ class Api::V1::TournamentsController < ApiController
     tournament = Tournament.find(params[:id])
     users = tournament.users
     entrants = Tournament.new.sort_entrant_names(users)
-    user = current_user if user_signed_in?
-    current_user_academy_id = user.academy_id if user_signed_in?
-    name = user.name_with_nickname if user_signed_in?
 
-    roster_id = false
+    if user_signed_in?
+      user = current_user
+      current_user_academy_id = user.academy_id
+      name = user.name_with_nickname
+      instructor_status = user.instructor?
+      user_id = user.id
+    end
 
     if TourneyRoster.find_by(tournament: tournament, user: current_user)
       roster_id = TourneyRoster.find_by(tournament: tournament, user: current_user).id
@@ -33,10 +36,8 @@ class Api::V1::TournamentsController < ApiController
     user_entered = false
     user_entered = true if roster_id
 
-    initial_rounds = false
     bracket1_id = tournament.bracket1_id
     bracket1_winners = []
-    bracket1_finished = false
 
     if bracket1_id
       initial_rounds = Bracket.find(bracket1_id).rounds.sort
@@ -45,10 +46,8 @@ class Api::V1::TournamentsController < ApiController
 
     bracket1_winners = Bracket.new.determine_bracket_winners(initial_rounds) if initial_rounds
 
-    bracket2_rounds = false
     bracket2_id = tournament.bracket2_id
     bracket2_winners = []
-    bracket2_finished = false
 
     if bracket2_id
       bracket2_rounds = Bracket.find(bracket2_id).rounds.sort
@@ -57,10 +56,8 @@ class Api::V1::TournamentsController < ApiController
 
     bracket2_winners = Bracket.new.determine_bracket_winners(bracket2_rounds) if bracket2_rounds
 
-    bracket3_round = false
     bracket3_id = tournament.bracket3_id
     bracket3_winner = []
-    bracket3_finished = false
 
     if bracket3_id
       bracket3_round = Bracket.find(bracket3_id).rounds.sort
@@ -71,13 +68,13 @@ class Api::V1::TournamentsController < ApiController
 
     render json: {
       tournament: tournament,
-      current_user_id: current_user.id,
+      current_user_id: user_id,
       current_user_academy_id: current_user_academy_id,
       user_entered: user_entered,
       name: name,
       entrants: entrants,
       roster_id: roster_id,
-      instructor_status: current_user.instructor?,
+      instructor_status: instructor_status,
       initial_rounds: initial_rounds,
       bracket1_winners: bracket1_winners,
       bracket2_rounds: bracket2_rounds,
@@ -105,5 +102,4 @@ class Api::V1::TournamentsController < ApiController
         :academy_id
       )
   end
-
 end
