@@ -1,4 +1,6 @@
 class Api::V1::AdvanceBracketsController < ApiController
+  before_action :authenticate_user!
+
   def create
     tournament = Tournament.find(params[:tournament_id])
     bracket = Bracket.create(tournament: tournament)

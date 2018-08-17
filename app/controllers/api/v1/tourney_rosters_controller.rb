@@ -1,4 +1,6 @@
 class Api::V1::TourneyRostersController < ApiController
+  before_action :authenticate_user!
+
   def create
     new_tourney_roster = TourneyRoster.new(user: current_user, tournament: Tournament.find(params[:tournament_id]))
     user = current_user if user_signed_in?

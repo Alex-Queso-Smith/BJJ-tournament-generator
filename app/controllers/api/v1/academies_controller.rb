@@ -1,4 +1,5 @@
 class Api::V1::AcademiesController < ApiController
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
     admin_status = false

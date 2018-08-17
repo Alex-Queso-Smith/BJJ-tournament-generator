@@ -1,8 +1,10 @@
 class Api::V1::RoundsController < ApiController
+  before_action :authenticate_user!
+
   def update
     round = Round.find(params[:id])
     uncheckedEntrant = find_other_entrant(params[:winner])
-    
+
     if round.update(winner: params[:winner])
       rounds = round.bracket.rounds.sort
 

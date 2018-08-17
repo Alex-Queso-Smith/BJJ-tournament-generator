@@ -63,6 +63,9 @@ class TournamentFormController extends React.Component {
        } else {
          let errorMessage = `${response.status} (${response.statusText})`,
              error = new Error(errorMessage)
+             if(response.status == 401){
+                alert("Whoa buddy!!\nYou must be signed in to add a tournament!!!")
+              }
          throw(error)
        }
      })
