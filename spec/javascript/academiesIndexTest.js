@@ -58,7 +58,7 @@ xdescribe('Academies Index', () => {
 
   afterEach(fetchMock.restore);
 
-  describe('AcademiesIndexContainer', () => {
+  xdescribe('AcademiesIndexContainer', () => {
     it('AcademiesIndexTile is present' ,(done) => {
       setTimeout(() => {
 
