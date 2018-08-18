@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Corben');
+
 .edit-academy {
   margin-top: 50rem;
   margin-left: 32rem;
@@ -15,8 +17,15 @@
   margin-bottom: 6em;
 }
 .academy-info > h2 {
-  text-decoration: underline;
+  text-decoration: underline #fedf00;
 }
 #website-link:hover {
   color: #fedf00;
+}
+.academy-info > h3 {
+  text-decoration: underline #fedf00;
+  font-family: 'Corben', cursive;
+}
+.add-video {
+  margin-left: 9em;
 }

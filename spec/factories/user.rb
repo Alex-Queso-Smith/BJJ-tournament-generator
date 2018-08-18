@@ -6,5 +6,4 @@ FactoryBot.define do
     last_name "Smith"
     belt "Blue"
   end
-
 end

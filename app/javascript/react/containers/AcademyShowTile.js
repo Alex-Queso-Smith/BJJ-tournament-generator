@@ -36,6 +36,11 @@ class AcademyShowTile extends React.Component {
           <h2>{this.props.name}</h2>
           <i>{`${this.props.address}, ${this.props.city} ${this.props.state} ${this.props.zipcode}`}</i><br />
           {website}
+          <br />
+          <br />
+          <br />
+          <br />
+          <h3>Past Tournaments</h3>
         </div>
         {tournaments}
       </div>
