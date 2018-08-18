@@ -33,7 +33,7 @@ userInstructor.update(
 
 user1 = FactoryBot.create(
   :user,
-  email: "Mathew@clarke.com",
+  email: "Mathew@Clarke.com",
   first_name: "Mathew",
   last_name: "Clarke",
   nickname: "Ponytail",
@@ -43,7 +43,7 @@ user1 = FactoryBot.create(
 
 user2 = FactoryBot.create(
   :user,
-  email: "Roxanne@Cojocariu.com",
+  email: "Roxanne@Cojo.com",
   first_name: "Roxanne",
   last_name: "Cojocariu",
   nickname: "Bigmouth",
