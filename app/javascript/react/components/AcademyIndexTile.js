@@ -11,9 +11,9 @@ class AcademyIndexTile extends React.Component {
     let image = '';
 
     if (this.props.photo.url) {
-      image = <img src={this.props.photo.url} />
+      image = <img id="academy-image" src={this.props.photo.url} />
     } else {
-      image = <img src="/assets/heart.jpg" alt="/public/heart.jpg" />
+      image = <img id="academy-image" src="/assets/heart.jpg" alt="/public/heart.jpg" />
     }
 
     return(
