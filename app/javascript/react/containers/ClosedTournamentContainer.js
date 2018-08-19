@@ -27,7 +27,7 @@ class ClosedTournamentContainer extends React.Component {
     return(
       <div id="tournament-videos" className="grid-container">
         <div className="grid-y grid-margin-x grid-margin-y">
-          <h4 className="videos-title">{`${tournament.belt} ${tournament.gender} - ${tournament.weight} - ${tournament.start_date}`}</h4>
+          <h4 className="videos-title">{`${tournament.belt} Belt - ${tournament.gender} - ${tournament.weight} - ${tournament.start_date}`}</h4>
           {videos}
           <AddVideoLink
             id={this.props.tournament.id}
