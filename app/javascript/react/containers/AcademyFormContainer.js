@@ -166,7 +166,7 @@ class AcademyFormContainer extends React.Component {
         />
         <div className="dropzone">
           <DropZone onDrop={this.onDrop} >
-            <p>Drop Academy Logo / Photo here or click to upload file</p>
+            <p id="drop-zone">Academy Logo (upload a square photo to avoid distortion)/ Drag photo here or click to upload file</p>
           </DropZone>
         </div>
         <aside>
