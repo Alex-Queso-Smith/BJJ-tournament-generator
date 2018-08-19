@@ -75,7 +75,7 @@ class AcademiesShowContainer extends React.Component {
     return(
       <div>
       <AcademyMenu
-        academyName={this.state.academy.name}
+        academy={this.state.academy}
         students={this.state.students}
         academyId={this.props.params.id}
         currentUserId={this.state.currentUserId}
@@ -86,6 +86,11 @@ class AcademiesShowContainer extends React.Component {
       <AcademyShowTile
         id={this.state.academy.id}
         name={this.state.academy.name}
+        address={this.state.academy.address}
+        city={this.state.academy.city}
+        state={this.state.academy.state}
+        zipcode={this.state.academy.zipcode}
+        website={this.state.academy.website}
         adminStatus={this.state.adminStatus}
         academyOwner={this.state.academy.user_id}
         userId={this.state.currentUserId}

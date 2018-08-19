@@ -47,8 +47,11 @@ select:hover {
 #photo-button {
   border: none;
   float: left;
-  width: 85%;
+  width: 75%;
 }
 #update-button {
   margin-left: 10rem;
+}
+.profile-photo-label {
+  margin-left: 5em;
 }
