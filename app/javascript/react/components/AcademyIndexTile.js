@@ -21,7 +21,7 @@ class AcademyIndexTile extends React.Component {
     } else {
       image =
       <Image
-        src="/assets/heart.jpg"
+        src={"/assets/heart.jpg"}
         height={300}
         width={300}
       />
