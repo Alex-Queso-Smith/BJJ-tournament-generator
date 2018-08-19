@@ -41,6 +41,12 @@ select:hover {
   width: 50%;
   float: left;
 }
+#academy-form, label {
+  font-size: 1.2em;
+}
+#drop-zone {
+  font-size: 1em;
+}
 .under-buttons {
   float: left;
 }

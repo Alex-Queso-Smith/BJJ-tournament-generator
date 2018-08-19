@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import Image from 'react-image-resizer';
 
 class AcademyIndexTile extends React.Component {
   constructor(props){
@@ -11,9 +12,19 @@ class AcademyIndexTile extends React.Component {
     let image = '';
 
     if (this.props.photo.url) {
-      image = <img src={this.props.photo.url} />
+      image =
+      <Image
+        src={this.props.photo.url}
+        height={300}
+        width={300}
+      />
     } else {
-      image = <img src="/assets/heart.jpg" alt="/public/heart.jpg" />
+      image =
+      <Image
+        src={"/assets/heart.jpg"}
+        height={300}
+        width={300}
+      />
     }
 
     return(
