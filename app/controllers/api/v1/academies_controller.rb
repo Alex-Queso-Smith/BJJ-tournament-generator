@@ -26,8 +26,6 @@ class Api::V1::AcademiesController < ApiController
 
     current_user_id = current_user.id if user_signed_in?
     admin_status = current_user.admin? if user_signed_in?
-    instructor_status = current_user.instructor? if user_signed_in?
-
 
     academy = Academy.find(params[:id])
 
