@@ -90,7 +90,6 @@ RSpec.describe Api::V1::AcademiesController, type: :controller do
         expect(returned_json["academy"]["name"]).to eq("Gracie Humaita")
         expect(returned_json["academy"]["address"]).to eq("502 S Lamar Blvd.")
         expect(returned_json["academy"]["city"]).to eq("Austin")
-        expect(returned_json["academy"]["city"]).to eq("Austin")
         expect(returned_json["academy"]["state"]).to eq("TX")
         expect(returned_json["academy"]["zipcode"]).to eq("78735")
         expect(returned_json["academy"]["website"]).to eq("https://www.graciehumaitaaustin.com")
@@ -201,25 +200,61 @@ RSpec.describe Api::V1::AcademiesController, type: :controller do
       end
     end
 
-  xdescribe "POST#create" do
+  describe "POST#create" do
+    let!(:user1) { FactoryBot.create(:user) }
 
     it "should create a new academy" do
-      post_json = {
-        name: "Gracie Humaita",
-        address: "350 South Lamar",
-        city: "Austin",
-        state: "TX",
-        zipcode: "78735",
-        website: "www.austinjiujitsu.com",
-        user_id: 1
-      }
+      sign_in user1
 
-      post :create, body: post_json
+      post :create, params: {
+          name: "Gracie Humaita",
+          address: "350 South Lamar",
+          city: "Austin",
+          state: "TX",
+          zipcode: "78735",
+          website: "www.austinjiujitsu.com"
+      }
 
       returned_json = JSON.parse(response.body)
 
       expect(response.status).to eq(200)
       expect(response.content_type).to eq('application/json')
+
+      expect(returned_json.length).to eq(1)
+      expect(returned_json["academy"]).to be_a(Hash)
+      expect(returned_json["academy"]).to_not be_a(Array)
+      expect(returned_json["academy"]["name"]).to eq("Gracie Humaita")
+      expect(returned_json["academy"]["address"]).to eq("350 South Lamar")
+      expect(returned_json["academy"]["city"]).to eq("Austin")
+      expect(returned_json["academy"]["state"]).to eq("TX")
+      expect(returned_json["academy"]["zipcode"]).to eq("78735")
+      expect(returned_json["academy"]["website"]).to eq("www.austinjiujitsu.com")
+    end
+  end
+
+  describe "PATCH#update" do
+    let!(:user1) { FactoryBot.create(:user) }
+    let!(:academy) { FactoryBot.create(:academy, user: user1) }
+
+    it "should update an academy" do
+      sign_in user1
+
+      patch :update, params: { id: academy.id }
+
+      returned_json = JSON.parse(response.body)
+
+      expect(response.status).to eq(200)
+      expect(response.content_type).to eq('application/json')
+
+      expect(returned_json.length).to eq(1)
+      expect(returned_json["academy"]).to be_a(Hash)
+      expect(returned_json["academy"]).to_not be_a(Array)
+      expect(returned_json["academy"]["name"]).to eq("Gracie Humaita")
+      expect(returned_json["academy"]["address"]).to eq("502 S Lamar Blvd.")
+      expect(returned_json["academy"]["city"]).to eq("Austin")
+      expect(returned_json["academy"]["state"]).to eq("TX")
+      expect(returned_json["academy"]["zipcode"]).to eq("78735")
+      expect(returned_json["academy"]["website"]).to eq("https://www.graciehumaitaaustin.com")
     end
   end
 end
