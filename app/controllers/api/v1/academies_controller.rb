@@ -91,6 +91,6 @@ class Api::V1::AcademiesController < ApiController
   end
 
   def serialized_closed_tournaments
-    ActiveModel::Serializer::ArraySerializer.new(Academy.find(params[:id]).closed_tournaments, each_serializer: TournamentSerializer)
+    ActiveModel::Serializer::CollectionSerializer.new(Academy.find(params[:id]).closed_tournaments, each_serializer: TournamentSerializer)
   end
 end
