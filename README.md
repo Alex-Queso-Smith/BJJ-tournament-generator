@@ -1,6 +1,6 @@
 # README
 
-https://app.codeship.com/projects/ae42d760-7a63-0136-955b-7ab0b6dfed25/status?branch=master
+[ ![Codeship Status for Cheese-Baron/BJJ-tournament-generator](https://app.codeship.com/projects/ae42d760-7a63-0136-955b-7ab0b6dfed25/status?branch=master)](https://app.codeship.com/projects/300636)
 
 Triangle City
 
