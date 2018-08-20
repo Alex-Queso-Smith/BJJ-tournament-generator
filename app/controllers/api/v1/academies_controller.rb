@@ -26,8 +26,6 @@ class Api::V1::AcademiesController < ApiController
 
     current_user_id = current_user.id if user_signed_in?
     admin_status = current_user.admin? if user_signed_in?
-    instructor_status = current_user.instructor? if user_signed_in?
-
 
     academy = Academy.find(params[:id])
 
@@ -91,6 +89,6 @@ class Api::V1::AcademiesController < ApiController
   end
 
   def serialized_closed_tournaments
-    ActiveModel::Serializer::ArraySerializer.new(Academy.find(params[:id]).closed_tournaments, each_serializer: TournamentSerializer)
+    ActiveModel::Serializer::CollectionSerializer.new(Academy.find(params[:id]).closed_tournaments, each_serializer: TournamentSerializer)
   end
 end
