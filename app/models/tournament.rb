@@ -12,7 +12,6 @@ class Tournament < ApplicationRecord
 
   def sort_entrant_names(entrants)
     name_entrants = []
-
     entrants.each do |entrant|
       name_entrants << entrant.name_with_nickname
     end

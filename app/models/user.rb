@@ -17,10 +17,12 @@ class User < ApplicationRecord
   has_many :tournaments, through: :tourney_rosters
 
   def name_with_nickname
-    if self.nickname.strip.empty?
-       "#{self.first_name} #{self.last_name}"
-     else
-       "#{self.first_name} '#{self.nickname}' #{self.last_name}"
+    if !self.instructor?
+      if self.nickname.length == 0
+        "#{self.first_name} #{self.last_name}"
+       else
+         "#{self.first_name} '#{self.nickname}' #{self.last_name}"
+      end
     end
   end
 end
