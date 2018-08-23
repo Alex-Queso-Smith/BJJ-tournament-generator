@@ -11,21 +11,21 @@ class AcademyIndexTile extends React.Component {
   render(){
     let image = '';
 
-    // if (this.props.photo.url) {
-    //   image =
-    //   <Image
-    //     src={this.props.photo.url}
-    //     height={300}
-    //     width={300}
-    //   />
-    // } else {
+    if (this.props.photo.url) {
+      image =
+      <Image
+        src={this.props.photo.url}
+        height={300}
+        width={300}
+      />
+    } else {
       image =
       <Image
         src={"/assets/heart.jpg"}
         height={300}
         width={300}
       />
-    // }
+    }
 
     return(
       <div className="">
