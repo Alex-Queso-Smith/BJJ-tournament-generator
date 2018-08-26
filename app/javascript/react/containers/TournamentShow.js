@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router';
 
 import WaitingTournamentTile from '../components/WaitingTournamentTile';
 import ActiveTournamentTile from './ActiveTournamentTile';
+import BackButton from '../components/BackButton';
 
 class TournamentShow extends React.Component {
   constructor(props){
@@ -543,6 +544,7 @@ class TournamentShow extends React.Component {
         {tournamentTile}
         {startTournamentButton}
         {deleteButton}
+        <BackButton id={"back-button"}/>
       </div>
     )
   }

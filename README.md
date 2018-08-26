@@ -6,4 +6,42 @@ Triangle City
 
 ----------------
 
-An application for Brazilian Jiu Jitsu academies and the creation of in house tournaments. Triangle City features a tournament generator feature on each academy page and the ability to upload videos from youtube when a tournament is completed.
+Stack:
+
+PostgreSQL
+Ruby (2.3.3)
+Rails (5.2)
+React
+To create an instance this application on your local machine follow these instructions
+
+Clone this repository onto your machine
+
+$ git clone https://github.com/Alex-Queso-Smith/BJJ-tournament-generator
+
+Install required gems with bundle
+
+$ bundle install
+
+Install required JS packages with yarn
+
+$ yarn install
+
+Make required database migrations
+
+$ rake db:create
+
+$ rake db:migrate
+
+Start the rails server
+
+$ rails s
+
+Start yarn
+
+$ yarn start
+
+Visit localhost:3000/ to see this application running on your local machine and play with all the features!
+
+To see a demo version of this application running currently visit:
+
+https://triangle-city.herokuapp.com/
