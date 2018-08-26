@@ -14,8 +14,11 @@
 #start-button {
   margin-left: 29.5em;
 }
-#delete-button{
+#delete-button {
   margin-left: 29.5em;
+}
+#back-button {
+  margin-left: 46em;
 }
 .tournament-info {
   width: 16em;
