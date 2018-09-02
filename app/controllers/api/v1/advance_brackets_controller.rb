@@ -13,7 +13,6 @@ class Api::V1::AdvanceBracketsController < ApiController
     created_advance_rounds = Round.new.create_advance_rounds(params[:entrants], bracket)
 
     if created_advance_rounds
-
       render json: {
         bracket: bracket,
         rounds: created_advance_rounds,
