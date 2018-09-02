@@ -22,5 +22,4 @@ class Api::V1::TourneyRostersController < ApiController
       render json: { error: 'Delete Failed' }, status: 422
     end
   end
-
 end
