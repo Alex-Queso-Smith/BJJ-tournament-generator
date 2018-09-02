@@ -18,10 +18,12 @@ class User < ApplicationRecord
 
   def name_with_nickname
     if !self.instructor?
-      if self.nickname.length == 0
+      if self.nickname.nil?
         "#{self.first_name} #{self.last_name}"
-       else
-         "#{self.first_name} '#{self.nickname}' #{self.last_name}"
+      elsif self.nickname.length == 0
+        "#{self.first_name} #{self.last_name}"
+      else
+        "#{self.first_name} '#{self.nickname}' #{self.last_name}"
       end
     end
   end
