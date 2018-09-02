@@ -12,18 +12,20 @@
   text-align: center;
 }
 #start-button {
-  margin-left: 29.5em;
+  margin-left: 27.5em;
+  width: 17%;
 }
 #delete-button {
-  margin-left: 29.5em;
+  margin-left: 24.5em;
 }
 #back-button {
-  margin-left: 46em;
+  margin: auto;
+  width: 12%;
 }
 .tournament-info {
   width: 16em;
   height: auto;
-  margin-left: 35em;
+  margin: auto;
   box-shadow: 0px 0px 60px #ffffff;
   border-radius: 5px;
   padding: 5px 5px;
@@ -46,7 +48,7 @@
   opacity: .8;
   color: #ffffff;
   border-radius: 5px;
-  margin-left: 38.5em;
+  margin: auto;
   margin-top: 3em;
   margin-bottom: 3em;
   text-align: center;
