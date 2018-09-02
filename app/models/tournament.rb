@@ -12,8 +12,10 @@ class Tournament < ApplicationRecord
 
   def sort_entrant_names(entrants)
     name_entrants = []
-    entrants.each do |entrant|
-      name_entrants << entrant.name_with_nickname
+    if entrants.length != 0
+      entrants.each do |entrant|
+        name_entrants << entrant.name_with_nickname
+      end
     end
     name_entrants
   end

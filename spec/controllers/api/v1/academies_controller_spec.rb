@@ -87,6 +87,7 @@ RSpec.describe Api::V1::AcademiesController, type: :controller do
 
         expect(returned_json.length).to eq(11)
         expect(returned_json["academy"]).to be_a(Hash)
+        expect(returned_json).to_not be_a(Array)
         expect(returned_json["academy"]["name"]).to eq("Gracie Humaita")
         expect(returned_json["academy"]["address"]).to eq("502 S Lamar Blvd.")
         expect(returned_json["academy"]["city"]).to eq("Austin")
