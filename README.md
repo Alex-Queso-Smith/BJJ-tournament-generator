@@ -4,6 +4,7 @@
 
 Triangle City
 
+A Ruby on Rails web application for creating and managing Jiu Jitsu tournaments.
 ----------------
 
 Stack:
@@ -16,30 +17,31 @@ To create an instance this application on your local machine follow these instru
 
 Clone this repository onto your machine
 
-$ git clone https://github.com/Alex-Queso-Smith/BJJ-tournament-generator
+```$ git clone https://github.com/Alex-Queso-Smith/BJJ-tournament-generator
+```
 
 Install required gems with bundle
 
-$ bundle install
-
+```$ bundle install
+```
 Install required JS packages with yarn
 
-$ yarn install
-
+```$ yarn install
+```
 Make required database migrations
 
-$ rake db:create
-
-$ rake db:migrate
-
+```$ rake db:create
+```
+```$ rake db:migrate
+```
 Start the rails server
 
-$ rails s
-
+```$ rails s
+```
 Start yarn
 
-$ yarn start
-
+```$ yarn start
+```
 Visit localhost:3000/ to see this application running on your local machine and play with all the features!
 
 To see a demo version of this application running currently visit:
