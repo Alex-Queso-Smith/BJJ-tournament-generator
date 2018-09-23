@@ -4,7 +4,7 @@
 
 Triangle City
 
-A Ruby on Rails web application for creating and managing Jiu Jitsu tournaments.
+A Ruby on Rails web application for creating and managing Jiu Jitsu tournaments. Sign up as an Instructor to create tournaments for students in your academy.
 ----------------
 
 Stack:
